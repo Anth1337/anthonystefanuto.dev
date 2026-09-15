@@ -1,11 +1,17 @@
 import './style.css';
+import { skillLogos } from './skill-logos';
 
 // ── Types ──
 
 interface Project {
+  id: string;
   name: string;
+  summary: string;
   description: string;
   tags: string[];
+  image?: { src: string; alt: string };
+  highlights?: string[];
+  links: { label: string; url: string }[];
 }
 
 interface BlogPost {
@@ -17,94 +23,248 @@ interface BlogPost {
   image: string;
 }
 
-interface Track { title: string; artist: string; duration: string; color: string; }
-interface BookRec { title: string; author: string; cover: string; palette: 'teal'|'warm'|'cool'; why: string; }
-interface ReadItem { title: string; author: string; }
-interface Team { name: string; league: string; note: string; color: string; initial: string; }
-interface CollageImg { src: string; cls: string; }
-
-type Interest =
-  | { num: string; name: string; kicker: string; tagline: string; type: 'collage'; images: CollageImg[] }
-  | { num: string; name: string; kicker: string; tagline: string; type: 'spotify'; tracks: Track[] }
-  | { num: string; name: string; kicker: string; tagline: string; type: 'books'; recommendations: BookRec[]; readList: ReadItem[] }
-  | { num: string; name: string; kicker: string; tagline: string; type: 'teams'; teams: Team[] };
+// interface Track { title: string; artist: string; duration: string; color: string; }
+// interface BookRec { title: string; author: string; cover: string; palette: 'teal'|'warm'|'cool'; why: string; }
+// interface ReadItem { title: string; author: string; }
+// interface Team { name: string; league: string; note: string; color: string; initial: string; }
+// interface CollageImg { src: string; cls: string; }
+//
+// type Interest =
+//   | { num: string; name: string; kicker: string; tagline: string; type: 'collage'; images: CollageImg[] }
+//   | { num: string; name: string; kicker: string; tagline: string; type: 'spotify'; tracks: Track[] }
+//   | { num: string; name: string; kicker: string; tagline: string; type: 'books'; recommendations: BookRec[]; readList: ReadItem[] }
+//   | { num: string; name: string; kicker: string; tagline: string; type: 'teams'; teams: Team[] };
 
 // ── Data ──
 
 const projects: Project[] = [
-  { name: 'E-Commerce Conversion Prediction Model', description: 'Machine learning pipeline that predicts purchase likelihood from user session behavior. Built with gradient boosting and feature engineering on clickstream data to help online retailers prioritize high-intent shoppers.', tags: ['Machine Learning', 'Python', 'Data Science'] },
-  { name: 'Temporal Action Detection on THUMOS14', description: 'Deep learning model that localizes and classifies human actions within untrimmed video on the THUMOS14 benchmark. Combines temporal convolutional networks with proposal-based detection to identify when actions start and end.', tags: ['Computer Vision', 'Deep Learning', 'PyTorch'] },
-  { name: 'Macrova \u2014 AI-Powered Nutrition App', description: 'Mobile-friendly nutrition tracker that uses AI to log meals from photos and natural language, then generates personalized macro and meal recommendations based on user goals.', tags: ['AI', 'Full Stack', 'Mobile'] },
-  { name: 'RiskGuard \u2014 AI Trading Risk Layer', description: 'Real-time risk management layer for retail trading platforms. Uses an LLM agent to analyze trade intent, surface portfolio exposure warnings, and block high-risk orders before execution. Built in 36 hours at QHacks 2026.', tags: ['AI', 'FinTech', 'Hackathon'] },
-  { name: 'MLB Breakout Player Detector', description: 'Predictive model that flags potential breakout MLB players for the upcoming season using historical statcast data, age curves, and underlying performance metrics.', tags: ['Machine Learning', 'Sports Analytics', 'Python'] },
-  { name: 'Campus Robotics Dashboard', description: 'Web dashboard for monitoring and coordinating a fleet of campus robots, with live telemetry, task assignment, and status visualization. Built for the campus robotics team.', tags: ['Web App', 'Robotics', 'Full Stack'] },
-  { name: 'Video Game Market Tracker', description: 'Aggregator that tracks pricing, sales, and player counts across major game storefronts. Surfaces trends and alerts users when titles hit target prices.', tags: ['Web App', 'Data Pipeline'] },
-  { name: 'Interactive Pet Game', description: 'Browser-based virtual pet game where players feed, train, and care for an animated companion. Features state persistence, animations, and a small economy loop.', tags: ['Game Dev', 'JavaScript'] },
-  { name: 'Yarkovsky Drift Prediction Model & Web App', description: 'ML model that predicts asteroid orbital drift caused by the Yarkovsky thermal effect, paired with an interactive web app for exploring predictions on near-Earth objects.', tags: ['Machine Learning', 'Astronomy', 'Web App'] },
-  { name: 'Cadence \u2014 Habit and Health Tracker', description: 'Habit-tracking app focused on daily consistency, with streak tracking, health metric integration, and a clean visual history of progress over time.', tags: ['Mobile', 'Full Stack', 'Health Tech'] },
-  { name: 'Multipurpose Discord Bot', description: 'Modular Discord bot bundling moderation, music playback, custom commands, and server utilities into one configurable package. Designed to be easy to deploy and extend per-server.', tags: ['Discord.js', 'Node.js', 'Bot'] },
+  {
+    "name": "SunPay — Group Payments",
+    "description": "Group payment app that splits a single purchase across members and charges their saved cards through Stripe. Built with Next.js and TypeScript, with a SQLite double-entry ledger, signed handoffs, and Auth0 step-up MFA. Won Best Authentication Integration at HackThe6ix 2026.",
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "Stripe",
+      "Auth0",
+      "SQLite",
+      "Hackathon"
+    ],
+    "id": "sunpay",
+    "summary": "Split a group purchase and charge everyone’s share through one payment flow.",
+    "links": [],
+    "highlights": [
+      "Splits a group purchase across members and charges their saved cards through the Stripe API.",
+      "Tracks balances with a SQLite double-entry ledger and verifies handoffs with signatures and Auth0 step-up MFA.",
+      "Won Best Authentication Integration at HackThe6ix 2026."
+    ]
+  },
+  {
+    "name": "E-Commerce Conversion Prediction Model",
+    "description": "Machine learning pipeline that predicts purchase likelihood from user session behavior. Built with gradient boosting and feature engineering on clickstream data to help online retailers prioritize high-intent shoppers.",
+    "tags": [
+      "Machine Learning",
+      "Python",
+      "Data Science"
+    ],
+    "id": "ecommerce-conversion",
+    "summary": "Predict which shopping sessions are most likely to become purchases.",
+    "links": [],
+    "highlights": [
+      "Analyzed 12.3K e-commerce sessions with exploratory analysis, feature engineering, and leakage-safe preprocessing.",
+      "Trained and evaluated logistic regression, decision tree, random forest, and XGBoost models.",
+      "Used F1, ROC-AUC, and PR-AUC to evaluate a dataset with a 15.5% positive class."
+    ]
+  },
+  {
+    "name": "Temporal Action Detection on THUMOS14",
+    "description": "Deep learning model that localizes and classifies human actions within untrimmed video on the THUMOS14 benchmark. Combines temporal convolutional networks with proposal-based detection to identify when actions start and end.",
+    "tags": [
+      "Computer Vision",
+      "Deep Learning",
+      "PyTorch"
+    ],
+    "id": "temporal-action-detection",
+    "summary": "Identify what actions happen in a video—and exactly when they happen.",
+    "links": [],
+    "highlights": [
+      "Compared I3D and VideoMAE v2 with CNN and ActionFormer detection heads across four configurations.",
+      "Worked with 413 untrimmed videos spanning 20 action classes.",
+      "Trained on an NVIDIA A10G GPU through Modal and authored an IEEE paper on the performance gap between CNN and video transformer models."
+    ]
+  },
+  {
+    "name": "Macrova — AI-Powered Nutrition App",
+    "description": "Mobile-friendly nutrition tracker that uses AI to log meals from photos and natural language, then generates personalized macro and meal recommendations based on user goals.",
+    "tags": [
+      "AI",
+      "Full Stack",
+      "Mobile"
+    ],
+    "id": "macrova",
+    "summary": "Log meals with AI and build personalized nutrition plans around your goals.",
+    "links": [],
+    "highlights": [
+      "Generates personalized 1–7 day meal plans using deterministic backtracking search.",
+      "Uses an LLM feedback loop to generate USDA-validated recipes when a plan is infeasible, keeping the constraint solver free of LLM calls.",
+      "Pairs a Flutter mobile client with a Dockerized FastAPI backend, 60+ pytest cases, and CI/CD."
+    ]
+  },
+  {
+    "name": "RiskGuard — AI Trading Risk Layer",
+    "description": "Real-time risk management layer for retail trading platforms. Uses an LLM agent to analyze trade intent, surface portfolio exposure warnings, and block high-risk orders before execution. Built in 36 hours at QHacks 2026.",
+    "tags": [
+      "AI",
+      "FinTech",
+      "Hackathon"
+    ],
+    "id": "riskguard",
+    "summary": "Surface portfolio risks and flag high-risk orders before a trade goes through.",
+    "links": []
+  },
+  {
+    "name": "MLB Breakout Player Detector",
+    "description": "Predictive model that flags potential breakout MLB players for the upcoming season using historical statcast data, age curves, and underlying performance metrics.",
+    "tags": [
+      "Machine Learning",
+      "Sports Analytics",
+      "Python"
+    ],
+    "id": "mlb-breakout",
+    "summary": "Find potential breakout MLB players using historical performance data.",
+    "links": []
+  },
+  {
+    "name": "Campus Robotics Dashboard",
+    "description": "Web dashboard for monitoring and coordinating a fleet of campus robots, with live telemetry, task assignment, and status visualization. Built for the campus robotics team.",
+    "tags": [
+      "Web App",
+      "Robotics",
+      "Full Stack"
+    ],
+    "id": "campus-robotics",
+    "summary": "Monitor campus robots, assign tasks, and explore live fleet telemetry.",
+    "links": []
+  },
+  {
+    "name": "Video Game Market Tracker",
+    "description": "Aggregator that tracks pricing, sales, and player counts across major game storefronts. Surfaces trends and alerts users when titles hit target prices.",
+    "tags": [
+      "Web App",
+      "Data Pipeline"
+    ],
+    "id": "game-market-tracker",
+    "summary": "Track game prices, player counts, and sales across major storefronts.",
+    "links": []
+  },
+  {
+    "name": "Interactive Pet Game",
+    "description": "Browser-based virtual pet game where players feed, train, and care for an animated companion. Features state persistence, animations, and a small economy loop.",
+    "tags": [
+      "Game Dev",
+      "JavaScript"
+    ],
+    "id": "interactive-pet",
+    "summary": "Feed, train, and care for a virtual companion in your browser.",
+    "links": []
+  },
+  {
+    "name": "Yarkovsky Drift Prediction Model & Web App",
+    "description": "ML model that predicts asteroid orbital drift caused by the Yarkovsky thermal effect, paired with an interactive web app for exploring predictions on near-Earth objects.",
+    "tags": [
+      "Machine Learning",
+      "Astronomy",
+      "Web App"
+    ],
+    "id": "yarkovsky-drift",
+    "summary": "Explore machine-learning predictions of thermal drift in asteroid orbits.",
+    "links": []
+  },
+  {
+    "name": "Cadence — Habit and Health Tracker",
+    "description": "Habit-tracking app focused on daily consistency, with streak tracking, health metric integration, and a clean visual history of progress over time.",
+    "tags": [
+      "Mobile",
+      "Full Stack",
+      "Health Tech"
+    ],
+    "id": "cadence",
+    "summary": "Track habits, health metrics, and daily progress in one place.",
+    "links": []
+  },
+  {
+    "name": "Multipurpose Discord Bot",
+    "description": "Modular Discord bot bundling moderation, music playback, custom commands, and server utilities into one configurable package. Designed to be easy to deploy and extend per-server.",
+    "tags": [
+      "Discord.js",
+      "Node.js",
+      "Bot"
+    ],
+    "id": "discord-bot",
+    "summary": "Bring moderation, music, and configurable utilities to a Discord server.",
+    "links": []
+  }
 ];
 
 const blogPosts: BlogPost[] = [
   { tag: 'Tech', date: 'Mar 10, 2026', readTime: '6 min read', title: 'How I Think About Building Side Projects', excerpt: "Side projects taught me more than any course ever did. Here's the framework I use to pick ideas, stay motivated, and actually ship something.", image: 'Blog+1' },
 ];
 
-const interests: Interest[] = [
-  { num: '01', name: 'Cooking', kicker: 'in the kitchen', tagline: 'Chefin it up with my roommates.', type: 'collage',
-    images: [
-      { src: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800', cls: 'c-big' },
-      { src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600', cls: 'c-tall' },
-      { src: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600', cls: 'c-wide' },
-      { src: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600', cls: 'c-sq-sm' },
-    ] },
-  { num: '02', name: 'Reading', kicker: 'between the pages', tagline: 'Lost in a good book, then writing notes in the margins.', type: 'books',
-    recommendations: [
-      { title: 'The Almanack of Naval Ravikant', author: 'Eric Jorgenson', cover: 'Almanack', palette: 'teal', why: 'Sharp first-principles thinking on wealth, happiness, and how to live. The book I quote most.' },
-      { title: 'Shoe Dog', author: 'Phil Knight', cover: 'Shoe Dog', palette: 'warm', why: 'Honest, messy origin story of Nike. Builders and anyone stuck on "what if" should read this.' },
-      { title: "Man's Search for Meaning", author: 'Viktor Frankl', cover: "Man's Search", palette: 'cool', why: 'Short, heavy, clarifying. Reframes how I think about hard days, ownership, and purpose.' },
-    ],
-    readList: [
-      { title: 'Atomic Habits', author: 'James Clear' }, { title: 'Deep Work', author: 'Cal Newport' },
-      { title: 'The Psychology of Money', author: 'Morgan Housel' }, { title: 'Range', author: 'David Epstein' },
-      { title: 'Zero to One', author: 'Peter Thiel' }, { title: 'Meditations', author: 'Marcus Aurelius' },
-      { title: 'The Lean Startup', author: 'Eric Ries' }, { title: 'Sapiens', author: 'Yuval Harari' },
-      { title: 'The Pragmatic Programmer', author: 'Hunt & Thomas' }, { title: 'Born a Crime', author: 'Trevor Noah' },
-    ] },
-  { num: '03', name: 'Fitness', kicker: 'iron & pavement', tagline: 'Early runs and late lifts — clearing my head one rep at a time.', type: 'collage',
-    images: [
-      { src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800', cls: 'c-big' },
-      { src: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600', cls: 'c-tall' },
-      { src: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1486218119243-13883505764c?w=600', cls: 'c-wide' },
-      { src: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600', cls: 'c-sq-sm' },
-    ] },
-  { num: '04', name: 'Teams', kicker: 'game day', tagline: 'Living and dying by every whistle, every weekend.', type: 'teams',
-    teams: [
-      { name: 'Toronto Blue Jays', league: 'MLB', note: 'From the SkyDome roar to every late-inning comeback.', color: '#134A8E', initial: 'J' },
-      { name: 'Toronto Maple Leafs', league: 'NHL', note: 'Generational heartbreak, eternal hope.', color: '#00205B', initial: '⧫' },
-      { name: 'Green Bay Packers', league: 'NFL', note: 'Small town, big title count. Lambeau forever.', color: '#203731', initial: 'G' },
-    ] },
-  { num: '05', name: 'Life', kicker: 'the in-between', tagline: 'Small airports, window seats, and unfamiliar streets.', type: 'collage',
-    images: [
-      { src: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800', cls: 'c-big' },
-      { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600', cls: 'c-tall' },
-      { src: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600', cls: 'c-wide' },
-      { src: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=600', cls: 'c-sq-lg' },
-      { src: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600', cls: 'c-sq-sm' },
-    ] },
-  { num: '06', name: 'Music', kicker: 'on repeat', tagline: "The current top 5 — the songs I can't stop replaying.", type: 'spotify',
-    tracks: [
-      { title: 'Redbone', artist: 'Childish Gambino', duration: '5:27', color: '#c44a36' },
-      { title: 'Motion Sickness', artist: 'Phoebe Bridgers', duration: '4:03', color: '#6b9fc4' },
-      { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', color: '#3a6b5a' },
-      { title: 'Dreams', artist: 'Fleetwood Mac', duration: '4:17', color: '#8a6b3a' },
-      { title: 'The Less I Know The Better', artist: 'Tame Impala', duration: '3:38', color: '#b03a5c' },
-    ] },
-];
+// const interests: Interest[] = [
+//   { num: '01', name: 'Cooking', kicker: 'in the kitchen', tagline: 'Chefin it up with my roommates.', type: 'collage',
+//     images: [
+//       { src: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800', cls: 'c-big' },
+//       { src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600', cls: 'c-tall' },
+//       { src: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600', cls: 'c-wide' },
+//       { src: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600', cls: 'c-sq-sm' },
+//     ] },
+//   { num: '02', name: 'Reading', kicker: 'between the pages', tagline: 'Lost in a good book, then writing notes in the margins.', type: 'books',
+//     recommendations: [
+//       { title: 'The Almanack of Naval Ravikant', author: 'Eric Jorgenson', cover: 'Almanack', palette: 'teal', why: 'Sharp first-principles thinking on wealth, happiness, and how to live. The book I quote most.' },
+//       { title: 'Shoe Dog', author: 'Phil Knight', cover: 'Shoe Dog', palette: 'warm', why: 'Honest, messy origin story of Nike. Builders and anyone stuck on "what if" should read this.' },
+//       { title: "Man's Search for Meaning", author: 'Viktor Frankl', cover: "Man's Search", palette: 'cool', why: 'Short, heavy, clarifying. Reframes how I think about hard days, ownership, and purpose.' },
+//     ],
+//     readList: [
+//       { title: 'Atomic Habits', author: 'James Clear' }, { title: 'Deep Work', author: 'Cal Newport' },
+//       { title: 'The Psychology of Money', author: 'Morgan Housel' }, { title: 'Range', author: 'David Epstein' },
+//       { title: 'Zero to One', author: 'Peter Thiel' }, { title: 'Meditations', author: 'Marcus Aurelius' },
+//       { title: 'The Lean Startup', author: 'Eric Ries' }, { title: 'Sapiens', author: 'Yuval Harari' },
+//       { title: 'The Pragmatic Programmer', author: 'Hunt & Thomas' }, { title: 'Born a Crime', author: 'Trevor Noah' },
+//     ] },
+//   { num: '03', name: 'Fitness', kicker: 'iron & pavement', tagline: 'Early runs and late lifts — clearing my head one rep at a time.', type: 'collage',
+//     images: [
+//       { src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800', cls: 'c-big' },
+//       { src: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600', cls: 'c-tall' },
+//       { src: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1486218119243-13883505764c?w=600', cls: 'c-wide' },
+//       { src: 'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600', cls: 'c-sq-sm' },
+//     ] },
+//   { num: '04', name: 'Teams', kicker: 'game day', tagline: 'Living and dying by every whistle, every weekend.', type: 'teams',
+//     teams: [
+//       { name: 'Toronto Blue Jays', league: 'MLB', note: 'From the SkyDome roar to every late-inning comeback.', color: '#134A8E', initial: 'J' },
+//       { name: 'Toronto Maple Leafs', league: 'NHL', note: 'Generational heartbreak, eternal hope.', color: '#00205B', initial: '⧫' },
+//       { name: 'Green Bay Packers', league: 'NFL', note: 'Small town, big title count. Lambeau forever.', color: '#203731', initial: 'G' },
+//     ] },
+//   { num: '05', name: 'Life', kicker: 'the in-between', tagline: 'Small airports, window seats, and unfamiliar streets.', type: 'collage',
+//     images: [
+//       { src: 'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800', cls: 'c-big' },
+//       { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600', cls: 'c-tall' },
+//       { src: 'https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600', cls: 'c-wide' },
+//       { src: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=600', cls: 'c-sq-lg' },
+//       { src: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600', cls: 'c-sq-sm' },
+//     ] },
+//   { num: '06', name: 'Music', kicker: 'on repeat', tagline: "The current top 5 — the songs I can't stop replaying.", type: 'spotify',
+//     tracks: [
+//       { title: 'Redbone', artist: 'Childish Gambino', duration: '5:27', color: '#c44a36' },
+//       { title: 'Motion Sickness', artist: 'Phoebe Bridgers', duration: '4:03', color: '#6b9fc4' },
+//       { title: 'Nights', artist: 'Frank Ocean', duration: '5:07', color: '#3a6b5a' },
+//       { title: 'Dreams', artist: 'Fleetwood Mac', duration: '4:17', color: '#8a6b3a' },
+//       { title: 'The Less I Know The Better', artist: 'Tame Impala', duration: '3:38', color: '#b03a5c' },
+//     ] },
+// ];
 
 // ── Helpers ──
 
@@ -159,8 +319,10 @@ function buildNav(): HTMLElement {
   container.appendChild(logo);
   const links = el('div', { className: 'nav-links' });
   const navItems: [string, string][] = [
-    ['#about', 'about'], ['#personal', 'interests'], ['#experience', 'experience'],
-    ['#education', 'education'], ['#projects', 'projects'], ['#blog', 'my mind'],
+    ['#about', 'about'],
+    // ['#personal', 'interests'], // Temporarily hidden.
+    ['#projects', 'projects'], ['#experience', 'experience'],
+    ['#education', 'education'], ['#skills', 'skills'], ['#blog', 'my mind'],
   ];
   for (const [href, text] of navItems) links.appendChild(el('a', { href }, text));
   container.appendChild(links);
@@ -185,166 +347,197 @@ function buildAbout(): HTMLElement {
   const container = el('div', { className: 'container' });
   container.appendChild(el('p', { className: 'section-label' }, 'about'));
   const content = el('div', { className: 'about-content' });
-  content.appendChild(halftoneImg(placeholder(300, 400, 'Portrait'), 'Anthony portrait', 'about-portrait'));
   const text = el('div', { className: 'about-text' });
   text.appendChild(el('p', {}, "Hi, I'm Anthony — a Computer Science student at Western University with a passion for building things that live on the internet. I love turning complex problems into clean, intuitive solutions through code. When I'm not in front of a screen, you'll find me in the kitchen experimenting with new recipes, at the gym, or lost in a good book."));
   content.appendChild(text);
   container.appendChild(content);
-  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 140px;' }));
+  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
   section.appendChild(container);
   return section;
 }
 
-// ── Interests grid + modal ──
-
-function buildInterestsModal(item: Interest): HTMLElement {
-  const overlay = el('div', { className: 'int-modal' });
-  const inner = el('div', { className: 'int-modal-inner' });
-
-  const back = el('button', { className: 'int-close' });
-  back.innerHTML = '<i class="fa-solid fa-arrow-left"></i> back';
-  back.addEventListener('click', () => close());
-  inner.appendChild(back);
-
-  inner.appendChild(el('div', { className: 'int-kicker' }, item.kicker));
-  inner.appendChild(el('h2', { className: 'int-title' }, item.name));
-  inner.appendChild(el('p', { className: 'int-tagline' }, item.tagline));
-
-  if (item.type === 'spotify') {
-    const wrap = el('div', { className: 'spotify-wrap' });
-    const head = el('div', { className: 'spotify-head' });
-    head.innerHTML = '<i class="fa-brands fa-spotify" style="font-size:1.4rem"></i><span>On Repeat</span>';
-    wrap.appendChild(head);
-    wrap.appendChild(el('div', { className: 'spotify-title' }, 'My Top 5'));
-    item.tracks.forEach((t, i) => {
-      const row = el('div', { className: 'track-row' });
-      row.appendChild(el('div', { className: 'track-num' }, String(i + 1)));
-      const cov = el('div', { className: 'track-cover', style: `background:${t.color}` });
-      cov.innerHTML = '<i class="fa-solid fa-music"></i>';
-      row.appendChild(cov);
-      const info = el('div');
-      info.appendChild(el('div', { className: 'track-title' }, t.title));
-      info.appendChild(el('div', { className: 'track-artist' }, t.artist));
-      row.appendChild(info);
-      row.appendChild(el('div', { className: 'track-duration' }, t.duration));
-      wrap.appendChild(row);
-    });
-    inner.appendChild(wrap);
-  } else if (item.type === 'books') {
-    const recSect = el('div', { style: 'margin-bottom:3rem' });
-    recSect.appendChild(el('div', { className: 'books-sect-label' }, "3 I'd recommend"));
-    const recGrid = el('div', { className: 'rec-grid' });
-    item.recommendations.forEach(r => {
-      const card = el('div', { className: 'rec-card' });
-      card.appendChild(el('div', { className: `rec-cover ${r.palette}` }, r.cover));
-      card.appendChild(el('div', { className: 'rec-title' }, r.title));
-      card.appendChild(el('div', { className: 'rec-author' }, r.author));
-      card.appendChild(el('div', { className: 'rec-why' }, r.why));
-      recGrid.appendChild(card);
-    });
-    recSect.appendChild(recGrid);
-    inner.appendChild(recSect);
-    const readSect = el('div');
-    readSect.appendChild(el('div', { className: 'books-sect-label' }, "What I've read recently"));
-    const list = el('div', { className: 'read-list' });
-    item.readList.forEach(b => {
-      const row = el('div', { className: 'read-item' });
-      row.appendChild(el('span', { className: 'read-item-title' }, b.title));
-      row.appendChild(el('span', { className: 'read-item-author' }, b.author));
-      list.appendChild(row);
-    });
-    readSect.appendChild(list);
-    inner.appendChild(readSect);
-  } else if (item.type === 'teams') {
-    const grid = el('div', { className: 'teams-grid' });
-    item.teams.forEach(t => {
-      const card = el('div', { className: 'team-card' });
-      card.appendChild(el('div', { className: 'team-crest', style: `background:${t.color}` }, t.initial));
-      card.appendChild(el('div', { className: 'team-name' }, t.name));
-      card.appendChild(el('div', { className: 'team-league' }, t.league));
-      card.appendChild(el('div', { className: 'team-note' }, t.note));
-      grid.appendChild(card);
-    });
-    inner.appendChild(grid);
-  } else {
-    const col = el('div', { className: 'collage' });
-    item.images.forEach(img => {
-      const cell = el('div', { className: `cell ${img.cls}` });
-      cell.appendChild(el('img', { src: img.src, alt: '' }));
-      col.appendChild(cell);
-    });
-    inner.appendChild(col);
-  }
-
-  overlay.appendChild(inner);
-
-  const close = () => {
-    overlay.remove();
-    document.body.style.overflow = '';
-    window.removeEventListener('keydown', onKey);
-  };
-  const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
-  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
-  window.addEventListener('keydown', onKey);
-  document.body.style.overflow = 'hidden';
-
-  return overlay;
-}
-
-function buildPersonal(): HTMLElement {
-  const section = el('section', { id: 'personal', className: 'section' });
-  const container = el('div', { className: 'container' });
-  container.appendChild(el('p', { className: 'section-label' }, 'interests'));
-
-  const grid = el('div', { className: 'int-grid' });
-  interests.forEach(item => {
-    const box = el('div', { className: 'int-box' });
-    box.appendChild(el('div', { className: 'int-num' }, item.num));
-    box.appendChild(el('div', { className: 'int-name' }, item.name));
-    const cta = el('div', { className: 'int-cta' });
-    cta.appendChild(el('span', { className: 'int-cta-label' }, 'Explore'));
-    cta.appendChild(el('span', { className: 'int-arrow' }, '↗'));
-    box.appendChild(cta);
-    box.addEventListener('click', () => {
-      document.body.appendChild(buildInterestsModal(item));
-    });
-    grid.appendChild(box);
-  });
-  container.appendChild(grid);
-  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 140px;' }));
-  section.appendChild(container);
-  return section;
-}
+// // ── Interests grid + modal ──
+//
+// function buildInterestsModal(item: Interest): HTMLElement {
+//   const overlay = el('div', { className: 'int-modal' });
+//   const inner = el('div', { className: 'int-modal-inner' });
+//
+//   const back = el('button', { className: 'int-close' });
+//   back.innerHTML = '<i class="fa-solid fa-arrow-left"></i> back';
+//   back.addEventListener('click', () => close());
+//   inner.appendChild(back);
+//
+//   inner.appendChild(el('div', { className: 'int-kicker' }, item.kicker));
+//   inner.appendChild(el('h2', { className: 'int-title' }, item.name));
+//   inner.appendChild(el('p', { className: 'int-tagline' }, item.tagline));
+//
+//   if (item.type === 'spotify') {
+//     const wrap = el('div', { className: 'spotify-wrap' });
+//     const head = el('div', { className: 'spotify-head' });
+//     head.innerHTML = '<i class="fa-brands fa-spotify" style="font-size:1.4rem"></i><span>On Repeat</span>';
+//     wrap.appendChild(head);
+//     wrap.appendChild(el('div', { className: 'spotify-title' }, 'My Top 5'));
+//     item.tracks.forEach((t, i) => {
+//       const row = el('div', { className: 'track-row' });
+//       row.appendChild(el('div', { className: 'track-num' }, String(i + 1)));
+//       const cov = el('div', { className: 'track-cover', style: `background:${t.color}` });
+//       cov.innerHTML = '<i class="fa-solid fa-music"></i>';
+//       row.appendChild(cov);
+//       const info = el('div');
+//       info.appendChild(el('div', { className: 'track-title' }, t.title));
+//       info.appendChild(el('div', { className: 'track-artist' }, t.artist));
+//       row.appendChild(info);
+//       row.appendChild(el('div', { className: 'track-duration' }, t.duration));
+//       wrap.appendChild(row);
+//     });
+//     inner.appendChild(wrap);
+//   } else if (item.type === 'books') {
+//     const recSect = el('div', { style: 'margin-bottom:3rem' });
+//     recSect.appendChild(el('div', { className: 'books-sect-label' }, "3 I'd recommend"));
+//     const recGrid = el('div', { className: 'rec-grid' });
+//     item.recommendations.forEach(r => {
+//       const card = el('div', { className: 'rec-card' });
+//       card.appendChild(el('div', { className: `rec-cover ${r.palette}` }, r.cover));
+//       card.appendChild(el('div', { className: 'rec-title' }, r.title));
+//       card.appendChild(el('div', { className: 'rec-author' }, r.author));
+//       card.appendChild(el('div', { className: 'rec-why' }, r.why));
+//       recGrid.appendChild(card);
+//     });
+//     recSect.appendChild(recGrid);
+//     inner.appendChild(recSect);
+//     const readSect = el('div');
+//     readSect.appendChild(el('div', { className: 'books-sect-label' }, "What I've read recently"));
+//     const list = el('div', { className: 'read-list' });
+//     item.readList.forEach(b => {
+//       const row = el('div', { className: 'read-item' });
+//       row.appendChild(el('span', { className: 'read-item-title' }, b.title));
+//       row.appendChild(el('span', { className: 'read-item-author' }, b.author));
+//       list.appendChild(row);
+//     });
+//     readSect.appendChild(list);
+//     inner.appendChild(readSect);
+//   } else if (item.type === 'teams') {
+//     const grid = el('div', { className: 'teams-grid' });
+//     item.teams.forEach(t => {
+//       const card = el('div', { className: 'team-card' });
+//       card.appendChild(el('div', { className: 'team-crest', style: `background:${t.color}` }, t.initial));
+//       card.appendChild(el('div', { className: 'team-name' }, t.name));
+//       card.appendChild(el('div', { className: 'team-league' }, t.league));
+//       card.appendChild(el('div', { className: 'team-note' }, t.note));
+//       grid.appendChild(card);
+//     });
+//     inner.appendChild(grid);
+//   } else {
+//     const col = el('div', { className: 'collage' });
+//     item.images.forEach(img => {
+//       const cell = el('div', { className: `cell ${img.cls}` });
+//       cell.appendChild(el('img', { src: img.src, alt: '' }));
+//       col.appendChild(cell);
+//     });
+//     inner.appendChild(col);
+//   }
+//
+//   overlay.appendChild(inner);
+//
+//   const close = () => {
+//     overlay.remove();
+//     document.body.style.overflow = '';
+//     window.removeEventListener('keydown', onKey);
+//   };
+//   const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(); };
+//   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+//   window.addEventListener('keydown', onKey);
+//   document.body.style.overflow = 'hidden';
+//
+//   return overlay;
+// }
+//
+// function buildPersonal(): HTMLElement {
+//   const section = el('section', { id: 'personal', className: 'section' });
+//   const container = el('div', { className: 'container' });
+//   container.appendChild(el('p', { className: 'section-label' }, 'interests'));
+//
+//   const grid = el('div', { className: 'int-grid' });
+//   interests.forEach(item => {
+//     const box = el('div', { className: 'int-box' });
+//     box.appendChild(el('div', { className: 'int-num' }, item.num));
+//     box.appendChild(el('div', { className: 'int-name' }, item.name));
+//     const cta = el('div', { className: 'int-cta' });
+//     cta.appendChild(el('span', { className: 'int-cta-label' }, 'Explore'));
+//     cta.appendChild(el('span', { className: 'int-arrow' }, '↗'));
+//     box.appendChild(cta);
+//     box.addEventListener('click', () => {
+//       document.body.appendChild(buildInterestsModal(item));
+//     });
+//     grid.appendChild(box);
+//   });
+//   container.appendChild(grid);
+//   container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
+//   section.appendChild(container);
+//   return section;
+// }
 
 function buildExperience(): HTMLElement {
   const section = el('section', { id: 'experience', className: 'section' });
   const container = el('div', { className: 'container' });
-  container.appendChild(el('p', { className: 'section-label' }, 'my experiences'));
+  container.appendChild(el('p', { className: 'section-label' }, 'experience'));
   container.appendChild(halftoneImg(placeholder(700, 394, 'Workspace'), 'Work environment', 'experience-hero'));
   const timeline = el('div', { className: 'experience-timeline' });
 
-  const entry1 = el('div', { className: 'timeline-entry' });
-  entry1.appendChild(el('img', { className: 'timeline-logo', src: '/logos/kpmg_canada_logo.jpeg', alt: 'KPMG logo' }));
-  const header1 = el('div', { className: 'exp-header' });
-  header1.appendChild(el('span', { className: 'exp-company' }, 'KPMG'));
-  header1.appendChild(el('span', { className: 'exp-date' }, 'June 2025 — August 2025'));
-  entry1.appendChild(header1);
-  entry1.appendChild(el('p', { className: 'exp-role' }, 'Solutions Analyst Intern'));
-  entry1.appendChild(el('p', { className: 'exp-desc' }, "Co-led the firmwide rollout of Microsoft Copilot to 10,000+ employees, ensuring smooth enablement across the organization. Collaborated in an Agile team with daily touch bases, improving cross-team efficiency by 15%. Worked with firm partners to implement site governance and provide compliance guidance. Designed and developed 20+ SharePoint and web pages, improving knowledge sharing for thousands of employees. Created Power BI visualizations to quantify support request trends, directly informing documentation strategy that cut repeat inquiries by 30%."));
-  timeline.appendChild(entry1);
+  const experiences = [
+    {
+      company: 'KPMG',
+      date: 'May 2026 — Present',
+      role: 'Software Engineer',
+      logo: '/logos/kpmg_canada_logo.jpeg',
+      description: 'Across two terms at KPMG, engineered 10+ JavaScript intranet pages backed by the SharePoint REST API, processing 500+ firmwide submissions and cutting turnaround by 45%. Automated SharePoint cleanup with PowerShell across 400+ site collections, recovering 50+ TB of storage with dry runs and batching. Developed an English/French translation agent in Copilot Studio with MCP integration, cutting mistranslations of KPMG-specific terms by 99%.',
+    },
+    {
+      company: 'KILOGRAPH',
+      date: 'May 2026 — Present',
+      role: 'Co-Founder',
+      logo: '/logos/kilograph_logo.jpeg',
+      description: 'Grew to 3 paying B2B clients in four months on a three-person founding team, owning product, sales, technical consultations, and hands-on client deployments. Co-created Decision Schema, infrastructure that makes companies AI-legible by turning offers, pricing, and proof into signals agentic search can trust and recommend.',
+    },
+    {
+      company: 'PDA Evaluations',
+      date: 'Jan 2026 — May 2026',
+      role: 'Software Engineer',
+      logo: '/logos/pda_evaluations_logo.jpeg',
+      description: 'Built a stat-tracking platform with React and TypeScript on Cloudflare and a Node.js REST API on AWS EC2, serving 30+ users and reducing manual data entry by 75%. Migrated 20K+ historical records from Google Sheets to a normalized PostgreSQL database using Sequelize migrations with zero data loss. Added scheduled health checks to sustain 99%+ uptime and automated CI/CD deployments gated on tests and staging.',
+    },
+    {
+      company: 'KPMG',
+      date: 'May 2025 — Aug 2025',
+      role: 'Solutions Engineer Intern',
+      logo: '/logos/kpmg_canada_logo.jpeg',
+      description: 'Co-led the firmwide rollout of Microsoft Copilot to 10,000+ employees, ensuring smooth enablement across the organization. Collaborated in an Agile team with daily touch bases, improving cross-team efficiency by 15%. Worked with firm partners to implement site governance and provide compliance guidance. Designed and developed 20+ SharePoint and web pages, improving knowledge sharing for thousands of employees. Created Power BI visualizations to quantify support request trends, directly informing documentation strategy that cut repeat inquiries by 30%.',
+    },
+    {
+      company: 'Western Developer Society',
+      date: 'Oct 2024 — May 2025',
+      role: 'Software Developer',
+      logo: '/logos/western_dev_society_logo.jpeg',
+      description: 'Managed and reviewed 50+ push, pull, and merge requests, ensuring code quality and seamless integration. Applied Agile methodologies through iterative development and sprint planning. Collaborated with project managers during regular meetings to refine the app and address technical challenges. Enhanced mobile UI using React Native and Tailwind CSS, resulting in nearly 20% faster navigation and improved readability across the app.',
+    },
+  ];
 
-  const entry2 = el('div', { className: 'timeline-entry' });
-  entry2.appendChild(el('img', { className: 'timeline-logo', src: '/logos/western_dev_society_logo.jpeg', alt: 'Western Developer Society logo' }));
-  const header2 = el('div', { className: 'exp-header' });
-  header2.appendChild(el('span', { className: 'exp-company' }, 'Western Developer Society'));
-  header2.appendChild(el('span', { className: 'exp-date' }, 'Oct 2024 — May 2025'));
-  entry2.appendChild(header2);
-  entry2.appendChild(el('p', { className: 'exp-role' }, 'Software Developer'));
-  entry2.appendChild(el('p', { className: 'exp-desc' }, "Managed and reviewed 50+ push, pull, and merge requests, ensuring code quality and seamless integration. Applied Agile methodologies through iterative development and sprint planning. Collaborated with project managers during regular meetings to refine the app and address technical challenges. Enhanced mobile UI using React Native and Tailwind CSS, resulting in nearly 20% faster navigation and improved readability across the app."));
-  timeline.appendChild(entry2);
+  for (const experience of experiences) {
+    const entry = el('div', { className: 'timeline-entry' });
+    if (experience.logo) {
+      entry.appendChild(el('img', { className: 'timeline-logo', src: experience.logo, alt: `${experience.company} logo` }));
+    }
+    const header = el('div', { className: 'exp-header' });
+    header.appendChild(el('span', { className: 'exp-company' }, experience.company));
+    header.appendChild(el('span', { className: 'exp-date' }, experience.date));
+    entry.appendChild(header);
+    entry.appendChild(el('p', { className: 'exp-role' }, experience.role));
+    entry.appendChild(el('p', { className: 'exp-desc' }, experience.description));
+    timeline.appendChild(entry);
+  }
 
   container.appendChild(timeline);
-  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 140px;' }));
+  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
   section.appendChild(container);
   return section;
 }
@@ -362,9 +555,107 @@ function buildEducation(): HTMLElement {
   details.appendChild(el('p', { className: 'education-courses' }, 'Relevant Courses: Data Structures & Algorithms, Information Systems & Design, Software Engineering, Statistics, Databases, Machine Learning, Deep Learning & Computer Vision, Operating Systems'));
   entry.appendChild(details);
   container.appendChild(entry);
-  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 140px;' }));
+  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
   section.appendChild(container);
   return section;
+}
+
+function buildSkills(): HTMLElement {
+  const section = el('section', { id: 'skills', className: 'section', 'aria-labelledby': 'skills-heading' });
+  const container = el('div', { className: 'container' });
+  container.appendChild(el('h2', { id: 'skills-heading', className: 'section-label' }, 'technical skills'));
+  const groups: [string, string[]][] = [
+    ['Languages & Web', ['Python', 'Java', 'C', 'C++', 'TypeScript', 'JavaScript', 'Dart', 'SQL', 'R', 'Bash', 'PowerShell', 'HTML', 'CSS']],
+    ['Frameworks & Libraries', ['React', 'Next.js', 'Flutter', 'Node.js', 'Express.js', 'FastAPI', 'Flask', 'Django', 'Tailwind CSS', 'Sequelize', 'Pydantic', 'D3.js']],
+    ['Data & Machine Learning', ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'OpenCV', 'Matplotlib', 'Seaborn', 'Hugging Face', 'LangChain', 'LangGraph', 'Power BI', 'Spark']],
+    ['Databases', ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase', 'Snowflake']],
+    ['Cloud & DevOps', ['AWS / EC2', 'Cloudflare', 'Docker', 'CI/CD', 'GitHub Actions', 'REST APIs', 'Modal']],
+    ['Developer Tools', ['Git', 'GitHub', 'Vite', 'VS Code', 'Jupyter', 'Jira', 'Figma', 'Claude Code', 'Cursor']],
+  ];
+  const grid = el('div', { className: 'skills-grid' });
+  for (const [category, skills] of groups) {
+    const group = el('div', { className: 'skill-group' });
+    group.appendChild(el('h3', {}, category));
+    const list = el('ul', { className: 'skill-list' });
+    for (const skill of skills) {
+      const item = el('li');
+      item.appendChild(el('img', { src: skillLogos[skill], alt: '', width: '24', height: '24', loading: 'lazy', className: 'skill-logo' }));
+      item.appendChild(el('span', {}, skill));
+      list.appendChild(item);
+    }
+    group.appendChild(list);
+    grid.appendChild(group);
+  }
+  container.appendChild(grid);
+  container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
+  section.appendChild(container);
+  return section;
+}
+
+function projectPreview(project: Project): HTMLElement {
+  const preview = el('div', { className: 'project-preview' });
+  const fallback = () => preview.replaceChildren(
+    el('span', { className: 'project-preview-name' }, project.name),
+    el('span', { className: 'project-preview-note' }, 'Preview coming soon'),
+  );
+  if (project.image) {
+    const image = el('img', { src: project.image.src, alt: project.image.alt, loading: 'lazy', decoding: 'async' });
+    image.addEventListener('error', fallback, { once: true });
+    preview.appendChild(image);
+  } else fallback();
+  return preview;
+}
+
+function projectLinks(project: Project): HTMLElement {
+  const links = el('div', { className: 'project-links' });
+  for (const link of project.links) {
+    if (!link.label.trim() || !/^https?:\/\//i.test(link.url)) continue;
+    links.appendChild(el('a', { href: link.url, target: '_blank', rel: 'noopener noreferrer',
+      'aria-label': `${project.name}: ${link.label} (opens in a new tab)`,
+    }, link.label, el('span', { 'aria-hidden': 'true' }, ' ↗')));
+  }
+  return links;
+}
+
+function openProject(project: Project, trigger: HTMLElement): void {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'project-dialog';
+  dialog.setAttribute('aria-labelledby', `${project.id}-detail-title`);
+  const close = el('button', { type: 'button', className: 'project-close', autofocus: '' }, 'Close ×');
+  close.addEventListener('click', () => dialog.close());
+  dialog.appendChild(close);
+  dialog.appendChild(el('p', { className: 'project-detail-label' }, 'Project overview'));
+  dialog.appendChild(el('h2', { id: `${project.id}-detail-title` }, project.name));
+  dialog.appendChild(projectPreview(project));
+  dialog.appendChild(el('p', { className: 'project-detail-description' }, project.description));
+
+  // Additional details supplied in the resumes; other projects use their existing overview.
+  const details = project.highlights;
+  if (details) {
+    dialog.appendChild(el('h3', {}, 'Highlights'));
+    const list = el('ul', { className: 'project-highlights' });
+    details.forEach(detail => list.appendChild(el('li', {}, detail)));
+    dialog.appendChild(list);
+  }
+  dialog.appendChild(el('h3', {}, 'Technologies & focus'));
+  const tags = el('div', { className: 'tech-tags' });
+  project.tags.forEach(tag => tags.appendChild(el('span', {}, tag)));
+  dialog.appendChild(tags);
+  const links = projectLinks(project);
+  if (links.childElementCount) dialog.appendChild(links);
+  const previousOverflow = document.body.style.overflow;
+  dialog.addEventListener('close', () => {
+    document.body.style.overflow = previousOverflow;
+    dialog.remove();
+    trigger.focus({ preventScroll: true });
+  }, { once: true });
+  dialog.addEventListener('click', event => {
+    const bounds = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dialog.close();
+  });
+  document.body.appendChild(dialog);
+  document.body.style.overflow = 'hidden';
+  dialog.showModal();
 }
 
 function buildProjects(): HTMLElement {
@@ -374,17 +665,26 @@ function buildProjects(): HTMLElement {
   container.appendChild(el('p', { className: 'work-intro' }, 'check out some of my work.'));
   const grid = el('div', { className: 'project-grid' });
   for (const proj of projects) {
-    const card = el('article', { className: 'project-card' });
-    card.appendChild(el('h3', {}, proj.name));
-    card.appendChild(el('p', { className: 'project-desc' }, proj.description));
+    const card = el('article', { className: 'project-card', 'aria-labelledby': `${proj.id}-title` });
+    const preview = el('button', { type: 'button', className: 'project-preview-button', 'aria-label': `View ${proj.name} details`, 'aria-haspopup': 'dialog' });
+    preview.appendChild(projectPreview(proj));
+    preview.addEventListener('click', () => openProject(proj, preview));
+    card.appendChild(preview);
+    const body = el('div', { className: 'project-card-body' });
+    body.appendChild(el('h3', { id: `${proj.id}-title` }, proj.name));
+    body.appendChild(el('p', { className: 'project-desc' }, proj.summary));
     const tags = el('div', { className: 'tech-tags' });
-    for (const tag of proj.tags) tags.appendChild(el('span', {}, tag));
-    card.appendChild(tags);
-    const imgWrap = el('div', { className: 'project-image' });
-    const shortName = proj.name.split('\u2014')[0].trim();
-    imgWrap.appendChild(halftoneImg(placeholder(400, 250, shortName), proj.name));
-    card.appendChild(imgWrap);
-    card.appendChild(el('a', { href: '#', className: 'read-more', innerHTML: 'read more &rarr;' }));
+    for (const tag of proj.tags.slice(0, 3)) tags.appendChild(el('span', {}, tag));
+    if (proj.tags.length > 3) tags.appendChild(el('span', { 'aria-label': `${proj.tags.length - 3} more technologies; view details for the full list` }, `+${proj.tags.length - 3}`));
+    body.appendChild(tags);
+    const actions = el('div', { className: 'project-actions' });
+    const links = projectLinks(proj);
+    if (links.childElementCount) actions.appendChild(links);
+    const more = el('button', { type: 'button', className: 'project-open', 'aria-label': `View ${proj.name} details`, 'aria-haspopup': 'dialog' }, 'View details →');
+    more.addEventListener('click', () => openProject(proj, more));
+    actions.appendChild(more);
+    body.appendChild(actions);
+    card.appendChild(body);
     grid.appendChild(card);
   }
   container.appendChild(grid);
@@ -475,10 +775,11 @@ function mount(): void {
   main.id = 'main-content';
   main.appendChild(buildHero());
   main.appendChild(buildAbout());
-  main.appendChild(buildPersonal());
+  // main.appendChild(buildPersonal()); // Interests temporarily hidden.
+  main.appendChild(buildProjects());
   main.appendChild(buildExperience());
   main.appendChild(buildEducation());
-  main.appendChild(buildProjects());
+  main.appendChild(buildSkills());
   main.appendChild(buildBlog());
   app.appendChild(main);
   app.appendChild(buildFooter());
