@@ -1,4 +1,4 @@
-# anthonystefanuto.com
+# anthonystefanuto.ca
 
 Personal portfolio site. Vanilla TypeScript + Vite — no framework.
 
