@@ -1,5 +1,24 @@
 # Skill image sources
 
+## Project-linked additions (September 2026)
+
+React Native uses the React mark; Java Swing uses the Java mark.
+Devicon assets below use the original variants. Auth0 and Stripe use their
+Simple Icons brand colours (#EB5424 and #635BFF); WXT uses its own project
+artwork, and Gemini uses Lobe Icons' colour artwork (MIT).
+
+- expo: https://raw.githubusercontent.com/devicons/devicon/master/icons/expo/expo-original.svg
+- pytest: https://raw.githubusercontent.com/devicons/devicon/master/icons/pytest/pytest-original.svg
+- junit: https://raw.githubusercontent.com/devicons/devicon/master/icons/junit/junit-original.svg
+- maven: https://raw.githubusercontent.com/devicons/devicon/master/icons/maven/maven-original.svg
+- gradle: https://raw.githubusercontent.com/devicons/devicon/master/icons/gradle/gradle-original.svg
+- auth0: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/auth0.svg
+- stripe: https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/stripe.svg
+- wxt: https://raw.githubusercontent.com/wxt-dev/wxt/0d540a6df9c1bf55bb8209c4d881715719fa03b1/docs/public/logo.svg
+- gemini: https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/gemini-color.svg
+- XGBoost: https://raw.githubusercontent.com/dmlc/dmlc.github.io/master/img/logo-m/xgboost.png (DMLC project artwork).
+- SHAP: https://raw.githubusercontent.com/shap/shap/master/docs/artwork/shap_logo.png (SHAP project artwork).
+
 - OpenCV: https://raw.githubusercontent.com/devicons/devicon/master/icons/opencv/opencv-original.svg (Devicon, MIT).
 
 ## Brand corrections

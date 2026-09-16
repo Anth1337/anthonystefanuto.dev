@@ -1,5 +1,18 @@
 // Local SVG assets; provenance is recorded in public/logos/skills/SOURCES.md.
 export const skillLogos: Record<string, string> = {
+  "React Native": '/logos/skills/react.svg',
+  "Java Swing": '/logos/skills/java.svg',
+  "Expo": '/logos/skills/expo.svg',
+  "WXT": '/logos/skills/wxt.svg',
+  "XGBoost": '/logos/skills/xgboost.png',
+  "SHAP": '/logos/skills/shap.png',
+  "Gemini API": '/logos/skills/gemini.svg',
+  "Auth0": '/logos/skills/auth0.svg',
+  "Stripe": '/logos/skills/stripe.svg',
+  "pytest": '/logos/skills/pytest.svg',
+  "JUnit": '/logos/skills/junit.svg',
+  "Maven": '/logos/skills/maven.svg',
+  "Gradle": '/logos/skills/gradle.svg',
   "OpenCV": '/logos/skills/opencv.svg',
   "Python": '/logos/skills/python.svg',
   "Java": '/logos/skills/java.svg',

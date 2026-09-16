@@ -39,169 +39,307 @@ interface BlogPost {
 
 const projects: Project[] = [
   {
-    "name": "SunPay — Group Payments",
-    "description": "Group payment app that splits a single purchase across members and charges their saved cards through Stripe. Built with Next.js and TypeScript, with a SQLite double-entry ledger, signed handoffs, and Auth0 step-up MFA. Won Best Authentication Integration at HackThe6ix 2026.",
+    "id": "sunpay",
+    "name": "SunPay: Group Payments",
+    "summary": "Split one purchase across a group without asking one person to cover the bill.",
+    "description": "Built at Hack the 6ix 2026, SunPay is designed to split a single purchase across a group so one person does not have to cover the whole bill. Members pay their shares through Stripe, with a payment flow designed to cover declined shares and support repayment within 30 days.",
     "tags": [
       "Next.js",
       "TypeScript",
       "Stripe",
       "Auth0",
       "SQLite",
-      "Hackathon"
+      "Express.js",
+      "Tailwind CSS"
     ],
-    "id": "sunpay",
-    "summary": "Split a group purchase and charge everyone’s share through one payment flow.",
-    "links": [],
     "highlights": [
-      "Splits a group purchase across members and charges their saved cards through the Stripe API.",
-      "Tracks balances with a SQLite double-entry ledger and verifies handoffs with signatures and Auth0 step-up MFA.",
-      "Won Best Authentication Integration at HackThe6ix 2026."
+      "Records charges, balances, and repayments in a double-entry SQLite ledger.",
+      "Uses Auth0 step-up MFA, signed merchant handoffs, and idempotent payment requests.",
+      "Won MLH: Best Use of Auth0 at Hack the 6ix 2026."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/ht6-2026"
+      },
+      {
+        "label": "Devpost",
+        "url": "https://devpost.com/software/sunpay-cp7xyi"
+      }
     ]
   },
   {
-    "name": "E-Commerce Conversion Prediction Model",
-    "description": "Machine learning pipeline that predicts purchase likelihood from user session behavior. Built with gradient boosting and feature engineering on clickstream data to help online retailers prioritize high-intent shoppers.",
-    "tags": [
-      "Machine Learning",
-      "Python",
-      "Data Science"
-    ],
     "id": "ecommerce-conversion",
-    "summary": "Predict which shopping sessions are most likely to become purchases.",
-    "links": [],
+    "name": "E-Commerce Conversion Prediction Model",
+    "summary": "Estimate whether an online shopping session will end in a purchase.",
+    "description": "This study uses 12,330 shopping sessions to compare logistic regression, decision trees, random forests, and XGBoost. Only 15.5% of sessions led to a purchase, so the analysis looks beyond accuracy to examine how well each model finds buyers.",
+    "tags": [
+      "Python",
+      "Scikit-learn",
+      "XGBoost",
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn"
+    ],
     "highlights": [
-      "Analyzed 12.3K e-commerce sessions with exploratory analysis, feature engineering, and leakage-safe preprocessing.",
-      "Trained and evaluated logistic regression, decision tree, random forest, and XGBoost models.",
-      "Used F1, ROC-AUC, and PR-AUC to evaluate a dataset with a 15.5% positive class."
+      "Explored browsing behaviour, encoded categorical features, and added session-duration and holiday features.",
+      "Tuned models with cross-validation and used class weighting to address the imbalance between buyers and non-buyers.",
+      "The report records a random forest F1 score of 0.651 and an XGBoost ROC-AUC of 0.930. The models used different train/test splits, so these are not a matched-split comparison."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/wkdghdus/Predicting-Purchasing-Intention"
+      },
+      {
+        "label": "Report (PDF)",
+        "url": "/reports/ecommerce-conversion-report.pdf"
+      }
     ]
   },
   {
-    "name": "Temporal Action Detection on THUMOS14",
-    "description": "Deep learning model that localizes and classifies human actions within untrimmed video on the THUMOS14 benchmark. Combines temporal convolutional networks with proposal-based detection to identify when actions start and end.",
-    "tags": [
-      "Computer Vision",
-      "Deep Learning",
-      "PyTorch"
-    ],
     "id": "temporal-action-detection",
-    "summary": "Identify what actions happen in a video—and exactly when they happen.",
-    "links": [],
+    "name": "Temporal Action Detection on THUMOS14",
+    "summary": "Find the start, end, and type of an action in an untrimmed sports video.",
+    "description": "A research project comparing I3D and VideoMAE v2 features with CNN and ActionFormer detection heads on THUMOS14. The pipeline adapts the ActionFormer codebase, keeps extracted features frozen, and trains the detection heads on Modal GPUs.",
+    "tags": [
+      "PyTorch",
+      "Python",
+      "Modal",
+      "Hugging Face",
+      "NumPy",
+      "Computer Vision"
+    ],
     "highlights": [
-      "Compared I3D and VideoMAE v2 with CNN and ActionFormer detection heads across four configurations.",
-      "Worked with 413 untrimmed videos spanning 20 action classes.",
-      "Trained on an NVIDIA A10G GPU through Modal and authored an IEEE paper on the performance gap between CNN and video transformer models."
+      "Evaluated four configurations across 20 action classes using temporal intersection-over-union thresholds from 0.3 to 0.7.",
+      "The I3D + ActionFormer configuration achieved 66.76% average mAP; the VideoMAE v2 + ActionFormer configuration reached 4.57%.",
+      "Documented differences in feature stride, pyramid depth, and tuning that limit what can be attributed to the backbone or head alone."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/Thumos14ActionTransformer"
+      },
+      {
+        "label": "Report (PDF)",
+        "url": "/reports/thumos14-action-detection-report.pdf"
+      }
     ]
   },
   {
-    "name": "Macrova — AI-Powered Nutrition App",
-    "description": "Mobile-friendly nutrition tracker that uses AI to log meals from photos and natural language, then generates personalized macro and meal recommendations based on user goals.",
-    "tags": [
-      "AI",
-      "Full Stack",
-      "Mobile"
-    ],
     "id": "macrova",
-    "summary": "Log meals with AI and build personalized nutrition plans around your goals.",
-    "links": [],
+    "name": "Macrova: Meal Planning Mobile App",
+    "summary": "A mobile app that plans meals around nutrition targets, food preferences, and your schedule.",
+    "description": "Macrova is a mobile meal-planning app built with Flutter and a Python backend. It builds one to seven days of meals around macro and micronutrient targets, excluded ingredients, preparation time, and pinned meals, using a deterministic backtracking search.",
+    "tags": [
+      "Flutter",
+      "FastAPI",
+      "Python",
+      "Dart",
+      "Pydantic",
+      "pytest"
+    ],
     "highlights": [
-      "Generates personalized 1–7 day meal plans using deterministic backtracking search.",
-      "Uses an LLM feedback loop to generate USDA-validated recipes when a plan is infeasible, keeping the constraint solver free of LLM calls.",
-      "Pairs a Flutter mobile client with a Dockerized FastAPI backend, 60+ pytest cases, and CI/CD."
+      "Scores candidate recipes and adjusts portions while keeping nutrition constraints in the planner.",
+      "When enabled, an LLM suggests recipes for gaps in a plan; ingredients and nutrition are checked against USDA data before those recipes enter the search.",
+      "Exposes planning through a FastAPI backend and CLI, with tests for constraints, recipe validation, and API behaviour."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/ccarlis1/Macrova"
+      }
     ]
   },
   {
-    "name": "RiskGuard — AI Trading Risk Layer",
-    "description": "Real-time risk management layer for retail trading platforms. Uses an LLM agent to analyze trade intent, surface portfolio exposure warnings, and block high-risk orders before execution. Built in 36 hours at QHacks 2026.",
-    "tags": [
-      "AI",
-      "FinTech",
-      "Hackathon"
-    ],
     "id": "riskguard",
-    "summary": "Surface portfolio risks and flag high-risk orders before a trade goes through.",
-    "links": []
+    "name": "RiskGuard: Trading Behaviour Monitor",
+    "summary": "Flag revenge trading and overtrading before a trader repeats a costly pattern.",
+    "description": "Built at QHacks 2026, RiskGuard combines a browser extension, a Flask API, and a Next.js dashboard. It checks trading history for behavioural patterns and shows a warning in the trading page. The demo runs on Investopedia Simulator, rather than enforcing orders through a broker.",
+    "tags": [
+      "Next.js",
+      "Python",
+      "Flask",
+      "TypeScript",
+      "WXT",
+      "Snowflake",
+      "Supabase",
+      "Gemini API",
+      "Pandas"
+    ],
+    "highlights": [
+      "Uses trade frequency, loss streaks, and position sizing to flag overtrading, revenge trading, and possible loss aversion.",
+      "A React extension overlay lets the trader review the warning, reconsider the trade, or continue.",
+      "Logs trades and interventions in Snowflake and uses Gemini to explain flagged behaviour."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/DanielKaminsky05/Riskgaurd"
+      },
+      {
+        "label": "Devpost",
+        "url": "https://devpost.com/software/tradeguard-moqf4z"
+      }
+    ]
   },
   {
-    "name": "MLB Breakout Player Detector",
-    "description": "Predictive model that flags potential breakout MLB players for the upcoming season using historical statcast data, age curves, and underlying performance metrics.",
-    "tags": [
-      "Machine Learning",
-      "Sports Analytics",
-      "Python"
-    ],
     "id": "mlb-breakout",
-    "summary": "Find potential breakout MLB players using historical performance data.",
-    "links": []
-  },
-  {
-    "name": "Campus Robotics Dashboard",
-    "description": "Web dashboard for monitoring and coordinating a fleet of campus robots, with live telemetry, task assignment, and status visualization. Built for the campus robotics team.",
+    "name": "MLB Breakout Player Detector",
+    "summary": "Rank minor-league hitters by their estimated chance of future MLB success.",
+    "description": "A Python notebook that collects MLB and minor-league batting data from the MLB Stats API, builds prospect features, and compares three classifiers. It defines a breakout as at least 500 MLB plate appearances with a combined OPS of 0.740 or higher in the following six seasons.",
     "tags": [
-      "Web App",
-      "Robotics",
-      "Full Stack"
+      "Python",
+      "Scikit-learn",
+      "Pandas",
+      "SHAP",
+      "Matplotlib",
+      "Seaborn"
     ],
-    "id": "campus-robotics",
-    "summary": "Monitor campus robots, assign tasks, and explore live fleet telemetry.",
-    "links": []
+    "highlights": [
+      "Engineers age-relative-to-level, strikeout rate, walk rate, isolated power, and other batting features.",
+      "Uses season-based train, validation, and test sets to compare logistic regression, random forest, and histogram gradient boosting.",
+      "Exports ranked predictions with SHAP explanations and evaluates ranking quality, calibration, and precision among the top 30 prospects."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/MLB-Breakout-Player-Predictor"
+      }
+    ]
   },
   {
-    "name": "Video Game Market Tracker",
-    "description": "Aggregator that tracks pricing, sales, and player counts across major game storefronts. Surfaces trends and alerts users when titles hit target prices.",
+    "id": "campus-robotics",
+    "name": "Campus Robotics Dashboard",
+    "summary": "A mobile prototype for browsing campus robots and viewing the campus map.",
+    "description": "Campus Robotics Dashboard is a Western Developer Society project built with React Native and Expo. The current app includes a map centred on Western's campus, a robot-list screen, and tab navigation. An Express server and MySQL connection provide the starting point for robot-location data.",
     "tags": [
-      "Web App",
-      "Data Pipeline"
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Express.js",
+      "MySQL",
+      "Tailwind CSS"
+    ],
+    "highlights": [
+      "Uses react-native-maps for the campus view and NativeWind for styling.",
+      "Separates the mobile client from the Node.js backend.",
+      "The robot list currently uses sample entries; live location responses and individual robot controls are not implemented in this version."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/WesternDeveloperSociety/TangApp"
+      }
+    ]
+  },
+  {
+    "name": "CS:GO Market Tracker",
+    "description": "CS:GO Market Tracker brings item market prices into Discord. The bot provides live price notifications and instant lookups, so users can check the price of an in-game item without leaving their server.",
+    "tags": [
+      "Discord Bot",
+      "Market Data"
     ],
     "id": "game-market-tracker",
-    "summary": "Track game prices, player counts, and sales across major storefronts.",
+    "summary": "Get live CS:GO item-price notifications and instant price lookups through a Discord bot.",
     "links": []
   },
   {
-    "name": "Interactive Pet Game",
-    "description": "Browser-based virtual pet game where players feed, train, and care for an animated companion. Features state persistence, animations, and a small economy loop.",
-    "tags": [
-      "Game Dev",
-      "JavaScript"
-    ],
     "id": "interactive-pet",
-    "summary": "Feed, train, and care for a virtual companion in your browser.",
-    "links": []
+    "name": "Interactive Pet Game",
+    "summary": "Care for a virtual pet and earn rewards through arcade mini-games.",
+    "description": "Pet-Life is a Java desktop game built with Swing. Players manage a pet's hunger, happiness, sleep, and health, with different pet states affecting the available actions. Progress is saved locally so players can return to the same pet.",
+    "tags": [
+      "Java",
+      "Java Swing",
+      "Maven",
+      "JUnit",
+      "Gson"
+    ],
+    "highlights": [
+      "Includes three arcade games: dice, digging, and twenty-one.",
+      "Stores progress in three JSON save slots using Gson.",
+      "Includes parental play-time controls, audio settings, and JUnit tests for pet behaviour, inventory, and game logic."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/Pet-Life"
+      }
+    ]
   },
   {
-    "name": "Yarkovsky Drift Prediction Model & Web App",
-    "description": "ML model that predicts asteroid orbital drift caused by the Yarkovsky thermal effect, paired with an interactive web app for exploring predictions on near-Earth objects.",
-    "tags": [
-      "Machine Learning",
-      "Astronomy",
-      "Web App"
-    ],
     "id": "yarkovsky-drift",
-    "summary": "Explore machine-learning predictions of thermal drift in asteroid orbits.",
-    "links": []
+    "name": "Yarkovsky Drift Prediction Model & Web App",
+    "summary": "Estimate asteroid orbital drift and explore asteroid paths in a 3D viewer.",
+    "description": "Built at Bram Hacks 2025, YarkNet connects a random forest model to a FastAPI service and a JavaScript orbit viewer. It estimates the small change in an asteroid's orbit caused by the Yarkovsky effect using its size and orbital properties, with asteroid records retrieved from NASA JPL's Small-Body Database.",
+    "tags": [
+      "Python",
+      "Scikit-learn",
+      "FastAPI",
+      "JavaScript",
+      "Spacekit.js",
+      "NumPy",
+      "Pydantic"
+    ],
+    "highlights": [
+      "Serves individual predictions and batches of up to ten asteroids through validated API inputs.",
+      "Applies saved calibration parameters to the model's predicted drift magnitude.",
+      "Displays asteroid paths with Spacekit.js. When spin direction is unknown, the API samples a direction from a prior rather than measuring it."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/BramHacks-2025"
+      }
+    ]
   },
   {
-    "name": "Cadence — Habit and Health Tracker",
-    "description": "Habit-tracking app focused on daily consistency, with streak tracking, health metric integration, and a clean visual history of progress over time.",
-    "tags": [
-      "Mobile",
-      "Full Stack",
-      "Health Tech"
-    ],
     "id": "cadence",
-    "summary": "Track habits, health metrics, and daily progress in one place.",
-    "links": []
+    "name": "Cadence: Habit & Health Tracker Mobile App",
+    "summary": "Track sleep, stress, heart rate, and daily habits in a mobile app with a built-in calendar.",
+    "description": "Cadence is a mobile habit and health tracker that brings sleep, stress, and heart-rate trends together with daily routines. It recommends changes based on those patterns and includes a built-in habit tracker and calendar. The app uses React Native and Expo, with a shared C++ core and local SQLite storage.",
+    "tags": [
+      "React Native",
+      "C++",
+      "Expo",
+      "TypeScript",
+      "SQLite"
+    ],
+    "highlights": [
+      "Combines habit tracking, goals, tasks, mood logs, and calendar views.",
+      "Includes permission-based integrations with Apple HealthKit and Android Health Connect for activity, sleep, and heart-rate data.",
+      "Helps users review patterns in their health and habits and suggests changes to their routines."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/Cadence"
+      }
+    ]
   },
   {
-    "name": "Multipurpose Discord Bot",
-    "description": "Modular Discord bot bundling moderation, music playback, custom commands, and server utilities into one configurable package. Designed to be easy to deploy and extend per-server.",
-    "tags": [
-      "Discord.js",
-      "Node.js",
-      "Bot"
-    ],
     "id": "discord-bot",
-    "summary": "Bring moderation, music, and configurable utilities to a Discord server.",
-    "links": []
+    "name": "Multipurpose Discord Bot",
+    "summary": "Create polls, manage study-session opt-ins, and play truth or dare in Discord.",
+    "description": "TheHokage is a Java bot built with JDA. Commands and button interactions are handled by separate listeners, with embedded messages for polls and community activities. Gradle packages the bot and its dependencies.",
+    "tags": [
+      "Java",
+      "JDA",
+      "Gradle"
+    ],
+    "highlights": [
+      "Creates polls with up to 20 options and emoji reactions.",
+      "Lets members opt into or out of a study-notification role with a button.",
+      "Handles truth and dare prompts through interactive message buttons."
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Anth1337/TheHokage"
+      }
+    ]
   }
 ];
 
@@ -232,7 +370,7 @@ const blogPosts: BlogPost[] = [
 //       { title: 'The Lean Startup', author: 'Eric Ries' }, { title: 'Sapiens', author: 'Yuval Harari' },
 //       { title: 'The Pragmatic Programmer', author: 'Hunt & Thomas' }, { title: 'Born a Crime', author: 'Trevor Noah' },
 //     ] },
-//   { num: '03', name: 'Fitness', kicker: 'iron & pavement', tagline: 'Early runs and late lifts — clearing my head one rep at a time.', type: 'collage',
+//   { num: '03', name: 'Fitness', kicker: 'iron & pavement', tagline: 'Early runs and late lifts, clearing my head one rep at a time.', type: 'collage',
 //     images: [
 //       { src: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800', cls: 'c-big' },
 //       { src: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600', cls: 'c-tall' },
@@ -256,7 +394,7 @@ const blogPosts: BlogPost[] = [
 //       { src: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=600', cls: 'c-sq-lg' },
 //       { src: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600', cls: 'c-sq-sm' },
 //     ] },
-//   { num: '06', name: 'Music', kicker: 'on repeat', tagline: "The current top 5 — the songs I can't stop replaying.", type: 'spotify',
+//   { num: '06', name: 'Music', kicker: 'on repeat', tagline: "The current top 5: the songs I can't stop replaying.", type: 'spotify',
 //     tracks: [
 //       { title: 'Redbone', artist: 'Childish Gambino', duration: '5:27', color: '#c44a36' },
 //       { title: 'Motion Sickness', artist: 'Phoebe Bridgers', duration: '4:03', color: '#6b9fc4' },
@@ -343,12 +481,27 @@ function buildHero(): HTMLElement {
 }
 
 function buildAbout(): HTMLElement {
-  const section = el('section', { id: 'about', className: 'section' });
+  const section = el('section', { id: 'about', className: 'section', 'aria-labelledby': 'about-heading' });
   const container = el('div', { className: 'container' });
-  container.appendChild(el('p', { className: 'section-label' }, 'about'));
   const content = el('div', { className: 'about-content' });
+  content.appendChild(el('h2', { id: 'about-heading', className: 'section-label' }, 'About'));
   const text = el('div', { className: 'about-text' });
-  text.appendChild(el('p', {}, "Hi, I'm Anthony — a Computer Science student at Western University with a passion for building things that live on the internet. I love turning complex problems into clean, intuitive solutions through code. When I'm not in front of a screen, you'll find me in the kitchen experimenting with new recipes, at the gym, or lost in a good book."));
+  const points = el('ul', { className: 'about-points', role: 'list' });
+  for (const point of [
+    'Computer Science student at Western University',
+    'Aspiring forward-deployed software engineer',
+    'Competitive',
+    'I like solving complex problems',
+    'I value simplicity',
+  ]) points.appendChild(el('li', {}, point));
+  text.appendChild(points);
+  text.appendChild(el('p', {}, 'I build to help. I like working directly with people to understand their workflows, ask the right questions, and turn ambiguous problems into efficient solutions. I understand the code as an engineer and the product as a stakeholder to deliver what matters.'));
+  text.appendChild(el('p', {}, 'I want to be in an environment that encourages my curiosity and challenges my thinking. Blessed with the ability to learn every day.'));
+  text.appendChild(el('p', {}, 'Outside of work, I enjoy baseball, rock climbing, and trying new things.'));
+  const quote = el('div', { className: 'about-quote' });
+  quote.appendChild(el('p', { className: 'section-label about-quote-intro' }, 'For whoever needs to hear this:'));
+  quote.appendChild(el('blockquote', { className: 'about-quote-text' }, '“Being afraid to leave isn’t a reason to stay”'));
+  text.appendChild(quote);
   content.appendChild(text);
   container.appendChild(content);
   container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
@@ -481,44 +634,45 @@ function buildExperience(): HTMLElement {
   const section = el('section', { id: 'experience', className: 'section' });
   const container = el('div', { className: 'container' });
   container.appendChild(el('p', { className: 'section-label' }, 'experience'));
-  container.appendChild(halftoneImg(placeholder(700, 394, 'Workspace'), 'Work environment', 'experience-hero'));
   const timeline = el('div', { className: 'experience-timeline' });
 
   const experiences = [
     {
       company: 'KPMG',
-      date: 'May 2026 — Present',
+      date: 'May 2026 to Present',
       role: 'Software Engineer',
       logo: '/logos/kpmg_canada_logo.jpeg',
-      description: 'Across two terms at KPMG, engineered 10+ JavaScript intranet pages backed by the SharePoint REST API, processing 500+ firmwide submissions and cutting turnaround by 45%. Automated SharePoint cleanup with PowerShell across 400+ site collections, recovering 50+ TB of storage with dry runs and batching. Developed an English/French translation agent in Copilot Studio with MCP integration, cutting mistranslations of KPMG-specific terms by 99%.',
+      description: "I build internal tools that help KPMG teams manage information and get through day-to-day work more efficiently. My work spans web development, workflow automation, and AI agents in Copilot Studio, using MCP connections to bring internal tools and data into AI workflows.",
     },
     {
       company: 'KILOGRAPH',
-      date: 'May 2026 — Present',
-      role: 'Co-Founder',
+      date: 'May 2026 to Present',
+      role: 'Co-Founder, Deployments',
       logo: '/logos/kilograph_logo.jpeg',
-      description: 'Grew to 3 paying B2B clients in four months on a three-person founding team, owning product, sales, technical consultations, and hands-on client deployments. Co-created Decision Schema, infrastructure that makes companies AI-legible by turning offers, pricing, and proof into signals agentic search can trust and recommend.',
+      description: "I deploy our Generative Engine Optimization (GEO) schemas to help small and midsize businesses get found through agentic search. I work directly with clients to structure their business information so AI search tools can understand what they offer.",
     },
     {
       company: 'PDA Evaluations',
-      date: 'Jan 2026 — May 2026',
+      date: 'Jan 2026 to May 2026',
       role: 'Software Engineer',
       logo: '/logos/pda_evaluations_logo.jpeg',
-      description: 'Built a stat-tracking platform with React and TypeScript on Cloudflare and a Node.js REST API on AWS EC2, serving 30+ users and reducing manual data entry by 75%. Migrated 20K+ historical records from Google Sheets to a normalized PostgreSQL database using Sequelize migrations with zero data loss. Added scheduled health checks to sustain 99%+ uptime and automated CI/CD deployments gated on tests and staging.',
+      description: "I built a database-backed scouting platform from the ground up, giving scouts one consistent app to track and record player statistics. I brought scattered spreadsheet data into a shared database and built the application around how scouts collect and review information.",
     },
     {
       company: 'KPMG',
-      date: 'May 2025 — Aug 2025',
-      role: 'Solutions Engineer Intern',
+      date: 'May 2025 to Aug 2025',
+      role: 'Solutions Analyst Intern',
       logo: '/logos/kpmg_canada_logo.jpeg',
-      description: 'Co-led the firmwide rollout of Microsoft Copilot to 10,000+ employees, ensuring smooth enablement across the organization. Collaborated in an Agile team with daily touch bases, improving cross-team efficiency by 15%. Worked with firm partners to implement site governance and provide compliance guidance. Designed and developed 20+ SharePoint and web pages, improving knowledge sharing for thousands of employees. Created Power BI visualizations to quantify support request trends, directly informing documentation strategy that cut repeat inquiries by 30%.',
+      description: "I helped teams adopt Microsoft Copilot and improve how they shared information through SharePoint. I also used Power BI to analyze support data, track operational metrics, and identify trends that informed improvements to internal tools and documentation.",
     },
     {
       company: 'Western Developer Society',
-      date: 'Oct 2024 — May 2025',
+      date: 'Oct 2024 to May 2025',
       role: 'Software Developer',
       logo: '/logos/western_dev_society_logo.jpeg',
-      description: 'Managed and reviewed 50+ push, pull, and merge requests, ensuring code quality and seamless integration. Applied Agile methodologies through iterative development and sprint planning. Collaborated with project managers during regular meetings to refine the app and address technical challenges. Enhanced mobile UI using React Native and Tailwind CSS, resulting in nearly 20% faster navigation and improved readability across the app.',
+      // Original description:
+      // description: 'Managed and reviewed 50+ push, pull, and merge requests, ensuring code quality and seamless integration. Applied Agile methodologies through iterative development and sprint planning. Collaborated with project managers during regular meetings to refine the app and address technical challenges. Enhanced mobile UI using React Native and Tailwind CSS, resulting in nearly 20% faster navigation and improved readability across the app.',
+      description: "I worked with a student team on a mobile app for a campus robotics project. Alongside building the interface and reviewing code, I worked on the app’s communication with the robots to make sure they interacted effectively. I also worked with project managers to turn planned features into usable screens.",
     },
   ];
 
@@ -532,7 +686,7 @@ function buildExperience(): HTMLElement {
     header.appendChild(el('span', { className: 'exp-date' }, experience.date));
     entry.appendChild(header);
     entry.appendChild(el('p', { className: 'exp-role' }, experience.role));
-    entry.appendChild(el('p', { className: 'exp-desc' }, experience.description));
+    if (experience.description) entry.appendChild(el('p', { className: 'exp-desc' }, experience.description));
     timeline.appendChild(entry);
   }
 
@@ -566,11 +720,12 @@ function buildSkills(): HTMLElement {
   container.appendChild(el('h2', { id: 'skills-heading', className: 'section-label' }, 'technical skills'));
   const groups: [string, string[]][] = [
     ['Languages & Web', ['Python', 'Java', 'C', 'C++', 'TypeScript', 'JavaScript', 'Dart', 'SQL', 'R', 'Bash', 'PowerShell', 'HTML', 'CSS']],
-    ['Frameworks & Libraries', ['React', 'Next.js', 'Flutter', 'Node.js', 'Express.js', 'FastAPI', 'Flask', 'Django', 'Tailwind CSS', 'Sequelize', 'Pydantic', 'D3.js']],
-    ['Data & Machine Learning', ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow', 'PyTorch', 'OpenCV', 'Matplotlib', 'Seaborn', 'Hugging Face', 'LangChain', 'LangGraph', 'Power BI', 'Spark']],
+    ['Frameworks & Libraries', ['React', 'React Native', 'Expo', 'Next.js', 'Flutter', 'Node.js', 'Express.js', 'FastAPI', 'Flask', 'Django', 'Tailwind CSS', 'Java Swing', 'WXT', 'Sequelize', 'Pydantic', 'D3.js']],
+    ['Data & Machine Learning', ['Pandas', 'NumPy', 'Scikit-learn', 'XGBoost', 'SHAP', 'TensorFlow', 'PyTorch', 'OpenCV', 'Matplotlib', 'Seaborn', 'Hugging Face', 'LangChain', 'LangGraph', 'Gemini API', 'Power BI', 'Spark']],
     ['Databases', ['PostgreSQL', 'MySQL', 'SQLite', 'Supabase', 'Snowflake']],
     ['Cloud & DevOps', ['AWS / EC2', 'Cloudflare', 'Docker', 'CI/CD', 'GitHub Actions', 'REST APIs', 'Modal']],
-    ['Developer Tools', ['Git', 'GitHub', 'Vite', 'VS Code', 'Jupyter', 'Jira', 'Figma', 'Claude Code', 'Cursor']],
+    ['Developer Tools', ['Git', 'GitHub', 'Vite', 'Maven', 'Gradle', 'pytest', 'JUnit', 'VS Code', 'Jupyter', 'Jira', 'Figma', 'Claude Code', 'Cursor']],
+    ['Authentication & Payments', ['Auth0', 'Stripe']],
   ];
   const grid = el('div', { className: 'skills-grid' });
   for (const [category, skills] of groups) {
@@ -609,10 +764,26 @@ function projectPreview(project: Project): HTMLElement {
 function projectLinks(project: Project): HTMLElement {
   const links = el('div', { className: 'project-links' });
   for (const link of project.links) {
-    if (!link.label.trim() || !/^https?:\/\//i.test(link.url)) continue;
-    links.appendChild(el('a', { href: link.url, target: '_blank', rel: 'noopener noreferrer',
+    const isReport = /^\/reports\/[a-z0-9-]+\.pdf$/i.test(link.url);
+    if (!link.label.trim() || (!/^https?:\/\//i.test(link.url) && !isReport)) continue;
+    const anchor = el('a', { href: link.url, target: '_blank', rel: 'noopener noreferrer',
       'aria-label': `${project.name}: ${link.label} (opens in a new tab)`,
-    }, link.label, el('span', { 'aria-hidden': 'true' }, ' ↗')));
+      title: `${link.label} (opens in a new tab)`,
+    });
+    if (isReport) {
+      anchor.classList.add('project-icon-link', 'project-report-link');
+      anchor.setAttribute('type', 'application/pdf');
+      anchor.appendChild(el('i', { className: 'fa-regular fa-file-pdf', 'aria-hidden': 'true' }));
+    } else if (link.label === 'GitHub') {
+      anchor.classList.add('project-icon-link');
+      anchor.appendChild(el('i', { className: 'fa-brands fa-github', 'aria-hidden': 'true' }));
+    } else if (link.label === 'Devpost') {
+      anchor.classList.add('project-icon-link');
+      anchor.appendChild(el('span', { className: 'devpost-icon', 'aria-hidden': 'true' }));
+    } else {
+      anchor.append(link.label, el('span', { 'aria-hidden': 'true' }, ' ↗'));
+    }
+    links.appendChild(anchor);
   }
   return links;
 }
@@ -629,7 +800,7 @@ function openProject(project: Project, trigger: HTMLElement): void {
   dialog.appendChild(projectPreview(project));
   dialog.appendChild(el('p', { className: 'project-detail-description' }, project.description));
 
-  // Additional details supplied in the resumes; other projects use their existing overview.
+  // Project-specific details checked against repository source and supplied reports.
   const details = project.highlights;
   if (details) {
     dialog.appendChild(el('h3', {}, 'Highlights'));
@@ -643,6 +814,19 @@ function openProject(project: Project, trigger: HTMLElement): void {
   dialog.appendChild(tags);
   const links = projectLinks(project);
   if (links.childElementCount) dialog.appendChild(links);
+  dialog.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const focusable = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), a[href]')];
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
   const previousOverflow = document.body.style.overflow;
   dialog.addEventListener('close', () => {
     document.body.style.overflow = previousOverflow;
@@ -662,28 +846,29 @@ function buildProjects(): HTMLElement {
   const section = el('section', { id: 'projects', className: 'section' });
   const container = el('div', { className: 'container' });
   container.appendChild(el('p', { className: 'section-label' }, 'projects'));
-  container.appendChild(el('p', { className: 'work-intro' }, 'check out some of my work.'));
   const grid = el('div', { className: 'project-grid' });
   for (const proj of projects) {
     const card = el('article', { className: 'project-card', 'aria-labelledby': `${proj.id}-title` });
-    const preview = el('button', { type: 'button', className: 'project-preview-button', 'aria-label': `View ${proj.name} details`, 'aria-haspopup': 'dialog' });
-    preview.appendChild(projectPreview(proj));
-    preview.addEventListener('click', () => openProject(proj, preview));
-    card.appendChild(preview);
+    card.appendChild(projectPreview(proj));
     const body = el('div', { className: 'project-card-body' });
-    body.appendChild(el('h3', { id: `${proj.id}-title` }, proj.name));
+    const title = el('button', { type: 'button', className: 'project-title-button',
+      'aria-label': `View ${proj.name} details`, 'aria-haspopup': 'dialog',
+    }, proj.name);
+    title.addEventListener('click', () => openProject(proj, title));
+    body.appendChild(el('h3', { id: `${proj.id}-title` }, title));
+    // A native title button provides keyboard access without nesting external links in a button.
+    card.addEventListener('click', event => {
+      if ((event.target as Element).closest('a, button')) return;
+      if (window.getSelection()?.toString()) return;
+      openProject(proj, title);
+    });
     body.appendChild(el('p', { className: 'project-desc' }, proj.summary));
     const tags = el('div', { className: 'tech-tags' });
     for (const tag of proj.tags.slice(0, 3)) tags.appendChild(el('span', {}, tag));
     if (proj.tags.length > 3) tags.appendChild(el('span', { 'aria-label': `${proj.tags.length - 3} more technologies; view details for the full list` }, `+${proj.tags.length - 3}`));
     body.appendChild(tags);
-    const actions = el('div', { className: 'project-actions' });
     const links = projectLinks(proj);
-    if (links.childElementCount) actions.appendChild(links);
-    const more = el('button', { type: 'button', className: 'project-open', 'aria-label': `View ${proj.name} details`, 'aria-haspopup': 'dialog' }, 'View details →');
-    more.addEventListener('click', () => openProject(proj, more));
-    actions.appendChild(more);
-    body.appendChild(actions);
+    if (links.childElementCount) body.appendChild(links);
     card.appendChild(body);
     grid.appendChild(card);
   }
@@ -728,17 +913,17 @@ function buildBlogPost(): HTMLElement {
   article.appendChild(el('p', { className: 'blog-post-meta' }, `${post.date} \u00B7 ${post.readTime}`));
   const body = el('div', { className: 'blog-post-body' });
   body.innerHTML = `
-    <p>Every developer I know has a graveyard of unfinished side projects. Half-built apps, abandoned repos, ideas that felt electric at 2 AM but fizzled out by the weekend. I've been there too \u2014 more times than I'd like to admit. But over the past year, I've started finishing things, and the shift came down to changing how I think about projects before I write a single line of code.</p>
+    <p>Every developer I know has a graveyard of unfinished side projects. Half-built apps, abandoned repos, ideas that felt electric at 2 AM but fizzled out by the weekend. I've been there too, more times than I'd like to admit. But over the past year, I've started finishing things, and the shift came down to changing how I think about projects before I write a single line of code.</p>
     <h2>Start With a Problem You Actually Have</h2>
-    <p>The biggest trap is building something because the tech sounds fun. "I want to learn WebSockets" is not a project \u2014 it's a tutorial. The projects I've actually shipped all started with a genuine annoyance. I couldn't find a good way to track my reading list across devices, so I built one. I wanted a faster way to preview markdown, so I made a CLI tool. When the motivation is real, you push through the boring parts because you actually want the thing to exist.</p>
+    <p>The biggest trap is building something because the tech sounds fun. "I want to learn WebSockets" is not a project. It's a tutorial. The projects I've actually shipped all started with a genuine annoyance. I couldn't find a good way to track my reading list across devices, so I built one. I wanted a faster way to preview markdown, so I made a CLI tool. When the motivation is real, you push through the boring parts because you actually want the thing to exist.</p>
     <h2>Scope It Down, Then Scope It Down Again</h2>
-    <p>My first instinct is always to design the full system \u2014 auth, admin panel, API versioning, the works. That's a recipe for abandonment. Now I ask: what's the absolute minimum version that solves the core problem? Usually it's embarrassingly simple. A single page. One API endpoint. No auth. Ship that, use it for a week, and only then decide what's worth adding. Most of the features I thought were essential turned out to be unnecessary.</p>
+    <p>My first instinct is always to design the full system: auth, admin panel, API versioning, the works. That's a recipe for abandonment. Now I ask: what's the absolute minimum version that solves the core problem? Usually it's embarrassingly simple. A single page. One API endpoint. No auth. Ship that, use it for a week, and only then decide what's worth adding. Most of the features I thought were essential turned out to be unnecessary.</p>
     <h2>Timebox, Don't Roadmap</h2>
-    <p>I give myself a weekend or a week \u2014 a fixed window. If it's not shippable by then, I either cut scope or accept it's too big for a side project. This sounds harsh, but it's liberating. You stop gold-plating and start making decisions. "Good enough" becomes a feature, not a compromise. Some of my most-used tools are ones I built in a single afternoon.</p>
+    <p>I give myself a weekend or a week, a fixed window. If it's not shippable by then, I either cut scope or accept it's too big for a side project. This sounds harsh, but it's liberating. You stop gold-plating and start making decisions. "Good enough" becomes a feature, not a compromise. Some of my most-used tools are ones I built in a single afternoon.</p>
     <h2>Ship Ugly, Iterate Later</h2>
-    <p>Nobody cares what your side project looks like on day one. Put it on GitHub, deploy it somewhere free, tell one friend about it. The act of shipping changes your relationship with the project. It goes from "a thing I'm working on" to "a thing that exists." That shift is motivating in a way that no todo list can replicate. You can always make it prettier later \u2014 and you probably will, because now you actually use it.</p>
+    <p>Nobody cares what your side project looks like on day one. Put it on GitHub, deploy it somewhere free, tell one friend about it. The act of shipping changes your relationship with the project. It goes from "a thing I'm working on" to "a thing that exists." That shift is motivating in a way that no todo list can replicate. You can always make it prettier later, and you probably will, because now you actually use it.</p>
     <h2>The Point Isn't the Product</h2>
-    <p>Most side projects won't become startups. They won't go viral. And that's fine. The point is the practice \u2014 learning to scope, to ship, to make tradeoffs under constraints. Every project I've finished has made me a better engineer at my day job. The skills transfer directly: estimating work, cutting scope, knowing when "done" is done. That's the real return on investment.</p>
+    <p>Most side projects won't become startups. They won't go viral. And that's fine. The point is the practice: learning to scope, to ship, to make tradeoffs under constraints. Every project I've finished has made me a better engineer at my day job. The skills transfer directly: estimating work, cutting scope, knowing when "done" is done. That's the real return on investment.</p>
   `;
   article.appendChild(body);
   return article;
