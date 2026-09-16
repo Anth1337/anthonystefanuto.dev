@@ -435,14 +435,18 @@ function halftoneImg(src: string, alt: string, className = ''): HTMLElement {
 function socialLinks(containerClass: string): HTMLElement {
   const div = el('div', { className: containerClass });
   const socials = [
-    { icon: 'fa-brands fa-linkedin-in', label: 'LinkedIn' },
-    { icon: 'fa-brands fa-x-twitter', label: 'Twitter / X' },
-    { icon: 'fa-brands fa-github', label: 'GitHub' },
-    { icon: 'fa-solid fa-envelope', label: 'Email' },
+    { icon: 'fa-brands fa-linkedin-in', label: 'LinkedIn', href: 'https://www.linkedin.com/in/anthony-stefanuto/' },
+    { icon: 'fa-brands fa-x-twitter', label: 'Twitter / X', href: 'https://x.com/Anthbuilds' },
+    { icon: 'fa-brands fa-github', label: 'GitHub', href: 'https://github.com/Anth1337' },
+    { icon: 'fa-solid fa-envelope', label: 'Email', href: 'mailto:anthstefanuto@gmail.com' },
   ];
   for (const s of socials) {
-    const a = el('a', { href: '#', 'aria-label': s.label });
-    a.innerHTML = `<i class="${s.icon}"></i>`;
+    const external = s.href.startsWith('https://');
+    const a = el('a', { href: s.href, 'aria-label': external ? `${s.label} (opens in a new tab)` : 'Email anthstefanuto@gmail.com',
+      title: s.label,
+      ...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
+    });
+    a.appendChild(el('i', { className: s.icon, 'aria-hidden': 'true' }));
     div.appendChild(a);
   }
   return div;
@@ -640,7 +644,7 @@ function buildExperience(): HTMLElement {
     {
       company: 'KPMG',
       date: 'May 2026 to Present',
-      role: 'Software Engineer',
+      role: 'Software & AI Analyst',
       logo: '/logos/kpmg_canada_logo.jpeg',
       description: "I build internal tools that help KPMG teams manage information and get through day-to-day work more efficiently. My work spans web development, workflow automation, and AI agents in Copilot Studio, using MCP connections to bring internal tools and data into AI workflows.",
     },

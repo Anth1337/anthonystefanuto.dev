@@ -113,6 +113,13 @@ nav .container { gap: 1rem; }
   white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+  .hero-name {
+    font-size: clamp(1.5rem, 7.5vw, 3.5rem);
+    max-width: 100%;
+  }
+}
+
 .hero-socials {
   display: flex; gap: 2rem; justify-content: center;
 }
@@ -589,7 +596,7 @@ nav .container { gap: 1rem; }
   width: 7px; height: 7px;
   transform: translateX(-3px);
   border-radius: 50%;
-  background: var(--border-img);
+  background: var(--accent);
 }
 .timeline-logo {
   width: 60px; height: 60px;
