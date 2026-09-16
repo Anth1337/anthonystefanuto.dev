@@ -422,6 +422,28 @@ function el(tag: string, attrs?: Record<string, string>, ...children: (string | 
   return element;
 }
 
+const mobileLayout = window.matchMedia('(max-width: 768px)');
+let disclosureId = 0;
+
+// Keep desktop content open; mobile readers choose which details to expand.
+function mobileDisclosure(label: string, content: HTMLElement): HTMLElement {
+  const wrapper = el('div', { className: 'mobile-disclosure' });
+  content.id = `mobile-detail-${++disclosureId}`;
+  const button = el('button', { type: 'button', className: 'mobile-disclosure-toggle',
+    'aria-controls': content.id, 'aria-expanded': 'false',
+  }, label);
+  let expanded = false;
+  const sync = () => {
+    content.hidden = mobileLayout.matches && !expanded;
+    button.setAttribute('aria-expanded', String(!content.hidden));
+  };
+  button.addEventListener('click', () => { expanded = !expanded; sync(); });
+  mobileLayout.addEventListener('change', sync);
+  wrapper.append(button, content);
+  sync();
+  return wrapper;
+}
+
 function placeholder(w: number, h: number, text: string): string {
   return `https://placehold.co/${w}x${h}/1a1a1a/e0e0e0?text=${encodeURIComponent(text)}`;
 }
@@ -690,7 +712,9 @@ function buildExperience(): HTMLElement {
     header.appendChild(el('span', { className: 'exp-date' }, experience.date));
     entry.appendChild(header);
     entry.appendChild(el('p', { className: 'exp-role' }, experience.role));
-    if (experience.description) entry.appendChild(el('p', { className: 'exp-desc' }, experience.description));
+    if (experience.description) entry.appendChild(mobileDisclosure(
+      'About this role', el('p', { className: 'exp-desc' }, experience.description),
+    ));
     timeline.appendChild(entry);
   }
 
@@ -710,7 +734,7 @@ function buildEducation(): HTMLElement {
   details.appendChild(el('h3', {}, 'Western University'));
   details.appendChild(el('p', { className: 'education-degree' }, 'BS, Computer Science'));
   details.appendChild(el('p', { className: 'education-grad' }, 'Expected Graduation, May 2028'));
-  details.appendChild(el('p', { className: 'education-courses' }, 'Relevant Courses: Data Structures & Algorithms, Information Systems & Design, Software Engineering, Statistics, Databases, Machine Learning, Deep Learning & Computer Vision, Operating Systems'));
+  details.appendChild(mobileDisclosure('Relevant courses', el('p', { className: 'education-courses' }, 'Relevant Courses: Data Structures & Algorithms, Information Systems & Design, Software Engineering, Statistics, Databases, Machine Learning, Deep Learning & Computer Vision, Operating Systems')));
   entry.appendChild(details);
   container.appendChild(entry);
   container.appendChild(el('hr', { className: 'section-divider', style: 'margin-top: 64px;' }));
@@ -742,7 +766,7 @@ function buildSkills(): HTMLElement {
       item.appendChild(el('span', {}, skill));
       list.appendChild(item);
     }
-    group.appendChild(list);
+    group.appendChild(mobileDisclosure(`${category} (${skills.length})`, list));
     grid.appendChild(group);
   }
   container.appendChild(grid);
@@ -850,7 +874,7 @@ function buildProjects(): HTMLElement {
   const section = el('section', { id: 'projects', className: 'section' });
   const container = el('div', { className: 'container' });
   container.appendChild(el('p', { className: 'section-label' }, 'projects'));
-  const grid = el('div', { className: 'project-grid' });
+  const grid = el('div', { className: 'project-grid', id: 'project-list' });
   for (const proj of projects) {
     const card = el('article', { className: 'project-card', 'aria-labelledby': `${proj.id}-title` });
     card.appendChild(projectPreview(proj));
@@ -877,6 +901,21 @@ function buildProjects(): HTMLElement {
     grid.appendChild(card);
   }
   container.appendChild(grid);
+  const toggle = el('button', { type: 'button', className: 'mobile-project-toggle',
+    'aria-controls': 'project-list', 'aria-expanded': 'false',
+  });
+  let showAll = false;
+  const syncProjects = () => {
+    [...grid.children].forEach((card, index) => {
+      (card as HTMLElement).hidden = mobileLayout.matches && !showAll && index >= 4;
+    });
+    toggle.textContent = showAll ? 'Show fewer projects' : `View all ${projects.length} projects`;
+    toggle.setAttribute('aria-expanded', String(showAll));
+  };
+  toggle.addEventListener('click', () => { showAll = !showAll; syncProjects(); });
+  mobileLayout.addEventListener('change', syncProjects);
+  container.appendChild(toggle);
+  syncProjects();
   section.appendChild(container);
   return section;
 }
