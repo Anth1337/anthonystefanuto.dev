@@ -1,4 +1,4 @@
-# anthonystefanuto.ca
+# anthonystefanuto.dev
 
 My personal website with my projects, experience, and a bit about me. Built with TypeScript and Vite.
 
