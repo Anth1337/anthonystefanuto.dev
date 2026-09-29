@@ -68,6 +68,7 @@ Later user-provided clarifications are reflected in the copy: Macrova and Cadenc
 - Reviewed tree: `a956c9aab00c9f870d0ef2ce96e6b623b4f45b01`
 - Read: README.md; requirements.txt; frontend/package.json; endpoints.py; frontend/app.js.
 - Content decisions: FastAPI loads a random forest and calibration data; Spacekit.js renders the viewer. API returns point estimates, not the README's proposed uncertainty bands or follow-up ranking. Unknown drift direction is sampled from a prior.
+- September 17, 2026: Re-read the public README, model-training cells in test.ipynb, and endpoints.py. The notebook includes random forest and XGBoost training, and the API still loads yarko_rf_model.pkl. Anthony confirmed that he also trained a linear regression model; the portfolio describes this as his contribution, separately from the model served by the app. Linear regression training was not found in the inspected notebook cells.
 
 ## Anth1337/Cadence
 

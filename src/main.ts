@@ -10,6 +10,7 @@ interface Project {
   description: string;
   tags: string[];
   image?: { src: string; alt: string };
+  images?: { src: string; alt: string }[];
   highlights?: string[];
   links: { label: string; url: string }[];
 }
@@ -40,6 +41,11 @@ interface BlogPost {
 const projects: Project[] = [
   {
     "id": "sunpay",
+    "images": [
+      { "src": "/projects/sunpay.jpeg", "alt": "SunPay split settlement screen showing each participant's payment status." },
+      { "src": "/projects/sunpay2.jpeg", "alt": "Merchant checkout offering a Split with SunPay payment option." },
+      { "src": "/projects/sunpay3.jpeg", "alt": "SunPay receiving the MLH Best Use of Auth0 award, with Kathy Dong and Anthony Stefanuto named on screen." }
+    ],
     "name": "SunPay: Group Payments",
     "summary": "Split one purchase across a group without asking one person to cover the bill.",
     "description": "Built at Hack the 6ix 2026, SunPay is designed to split a single purchase across a group so one person does not have to cover the whole bill. Members pay their shares through Stripe, with a payment flow designed to cover declined shares and support repayment within 30 days.",
@@ -155,6 +161,13 @@ const projects: Project[] = [
   {
     "id": "riskguard",
     "name": "RiskGuard: Trading Behaviour Monitor",
+    "images": [{
+      "src": "/projects/riskguard.jpeg",
+      "alt": "RiskGuard dashboard showing capital preserved, trading behaviour alerts, and a table of recent trades."
+    }, {
+      "src": "/projects/riskguard2.jpeg",
+      "alt": "RiskGuard warning overlay identifying potential revenge trading and offering the option to go back or continue the trade."
+    }],
     "summary": "Flag revenge trading and overtrading before a trader repeats a costly pattern.",
     "description": "Built at QHacks 2026, RiskGuard combines a browser extension, a Flask API, and a Next.js dashboard. It checks trading history for behavioural patterns and shows a warning in the trading page. The demo runs on Investopedia Simulator, rather than enforcing orders through a broker.",
     "tags": [
@@ -212,6 +225,10 @@ const projects: Project[] = [
   {
     "id": "campus-robotics",
     "name": "Campus Robotics Dashboard",
+    "image": {
+      "src": "/projects/campus-robotics.webp",
+      "alt": "Campus Robotics app screens showing map upload, a robot map, and a robot status list."
+    },
     "summary": "A mobile prototype for browsing campus robots and viewing the campus map.",
     "description": "Campus Robotics Dashboard is a Western Developer Society project built with React Native and Expo. The current app includes a map centred on Western's campus, a robot-list screen, and tab navigation. An Express server and MySQL connection provide the starting point for robot-location data.",
     "tags": [
@@ -236,13 +253,20 @@ const projects: Project[] = [
   },
   {
     "name": "CS:GO Market Tracker",
-    "description": "CS:GO Market Tracker brings item market prices into Discord. The bot provides live price notifications and instant lookups, so users can check the price of an in-game item without leaving their server.",
+    "description": "A Java Discord bot for following CS:GO item prices and market trends. It collects pricing data from websites and APIs, bringing live updates and on-demand price lookups into a Discord server. Users can manage their preferences through bot commands to follow the items they care about.",
     "tags": [
-      "Discord Bot",
-      "Market Data"
+      "Java",
+      "JDA",
+      "Jsoup",
+      "Gson"
     ],
     "id": "game-market-tracker",
     "summary": "Get live CS:GO item-price notifications and instant price lookups through a Discord bot.",
+    "highlights": [
+      "Handles Discord commands and events with JDA (Java Discord API).",
+      "Scrapes item prices from websites with Jsoup and processes API responses with HTTP requests and Gson.",
+      "Supports commands to add, remove, and update user preferences, and look up item prices across multiple sources."
+    ],
     "links": []
   },
   {
@@ -272,8 +296,8 @@ const projects: Project[] = [
   {
     "id": "yarkovsky-drift",
     "name": "Yarkovsky Drift Prediction Model & Web App",
-    "summary": "Estimate asteroid orbital drift and explore asteroid paths in a 3D viewer.",
-    "description": "Built at Bram Hacks 2025, YarkNet connects a random forest model to a FastAPI service and a JavaScript orbit viewer. It estimates the small change in an asteroid's orbit caused by the Yarkovsky effect using its size and orbital properties, with asteroid records retrieved from NASA JPL's Small-Body Database.",
+    "summary": "Predict asteroid orbital drift with machine learning and explore asteroid paths in a 3D viewer.",
+    "description": "Built at Bram Hacks 2025, YarkNet explores how heat radiating from an asteroid can gradually change its orbit through the Yarkovsky effect. I trained a linear regression model to predict this drift. The project brings together asteroid data, a FastAPI backend, and an interactive 3D orbit viewer to explore predictions alongside records from NASA JPL's Small-Body Database.",
     "tags": [
       "Python",
       "Scikit-learn",
@@ -284,9 +308,9 @@ const projects: Project[] = [
       "Pydantic"
     ],
     "highlights": [
-      "Serves individual predictions and batches of up to ten asteroids through validated API inputs.",
-      "Applies saved calibration parameters to the model's predicted drift magnitude.",
-      "Displays asteroid paths with Spacekit.js. When spin direction is unknown, the API samples a direction from a prior rather than measuring it."
+      "My model-training work included linear regression; the repository also contains random forest and XGBoost experiments using asteroid size and orbital features.",
+      "The web app serves calibrated random forest predictions through FastAPI, with support for individual asteroids and batches of up to ten.",
+      "Retrieves asteroid records from NASA JPL and displays orbital paths with Spacekit.js. Unknown drift direction is sampled from a prior, not measured."
     ],
     "links": [
       {
@@ -775,17 +799,51 @@ function buildSkills(): HTMLElement {
   return section;
 }
 
-function projectPreview(project: Project): HTMLElement {
+function projectPreview(project: Project, expanded = false): HTMLElement {
   const preview = el('div', { className: 'project-preview' });
-  const fallback = () => preview.replaceChildren(
+  const availableImages = project.images?.length ? project.images : project.image ? [project.image] : [];
+  const images = expanded ? availableImages : availableImages.slice(0, 1);
+  const frame = images.length > 1 ? el('div', { className: 'project-slide' }) : preview;
+  const fallback = () => frame.replaceChildren(
     el('span', { className: 'project-preview-name' }, project.name),
     el('span', { className: 'project-preview-note' }, 'Preview coming soon'),
   );
-  if (project.image) {
-    const image = el('img', { src: project.image.src, alt: project.image.alt, loading: 'lazy', decoding: 'async' });
+  const showImage = (index: number) => {
+    const image = el('img', { src: images[index].src, alt: images[index].alt, loading: 'lazy', decoding: 'async' });
     image.addEventListener('error', fallback, { once: true });
-    preview.appendChild(image);
-  } else fallback();
+    frame.replaceChildren(image);
+  };
+  if (images.length) showImage(0);
+  else fallback();
+  if (images.length > 1) {
+    preview.classList.add('project-gallery');
+    preview.setAttribute('role', 'group');
+    preview.setAttribute('aria-label', `${project.name} screenshots`);
+    preview.appendChild(frame);
+    let index = 0;
+    const status = el('span', { className: 'project-slide-count', 'aria-live': 'polite', 'aria-atomic': 'true' }, `1 / ${images.length}`);
+    const change = (step: number) => {
+      index = (index + step + images.length) % images.length;
+      showImage(index);
+      status.textContent = `${index + 1} / ${images.length}`;
+    };
+    const controls = el('div', { className: 'project-gallery-controls' });
+    for (const [label, symbol, step] of [['Previous image', '←', -1], ['Next image', '→', 1]] as const) {
+      const button = el('button', { type: 'button', 'aria-label': label }, symbol);
+      button.addEventListener('click', event => { event.stopPropagation(); change(step); });
+      controls.appendChild(button);
+    }
+    controls.insertBefore(status, controls.lastChild);
+    controls.addEventListener('click', event => event.stopPropagation());
+    controls.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        event.stopPropagation();
+        change(event.key === 'ArrowLeft' ? -1 : 1);
+      }
+    });
+    preview.appendChild(controls);
+  }
   return preview;
 }
 
@@ -825,7 +883,7 @@ function openProject(project: Project, trigger: HTMLElement): void {
   dialog.appendChild(close);
   dialog.appendChild(el('p', { className: 'project-detail-label' }, 'Project overview'));
   dialog.appendChild(el('h2', { id: `${project.id}-detail-title` }, project.name));
-  dialog.appendChild(projectPreview(project));
+  dialog.appendChild(projectPreview(project, true));
   dialog.appendChild(el('p', { className: 'project-detail-description' }, project.description));
 
   // Project-specific details checked against repository source and supplied reports.
