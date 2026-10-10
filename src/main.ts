@@ -9,8 +9,8 @@ interface Project {
   summary: string;
   description: string;
   tags: string[];
-  image?: { src: string; alt: string };
-  images?: { src: string; alt: string }[];
+  image?: { src: string; alt: string; view?: 'Web view' | 'Mobile view' };
+  images?: { src: string; alt: string; view?: 'Web view' | 'Mobile view' }[];
   highlights?: string[];
   links: { label: string; url: string }[];
 }
@@ -138,10 +138,20 @@ const projects: Project[] = [
     "name": "Macrova: Meal Planning Mobile App",
     "images": [{
       "src": "/projects/macrova-schedule.png",
+      "view": "Web view",
       "alt": "Macrova schedule planner showing daily meal counts, cooking-time preferences, and workouts between meals."
     }, {
       "src": "/projects/macrova-recipe-builder.png",
+      "view": "Web view",
       "alt": "Macrova recipe builder with ingredient, serving, cooking-time, and instruction fields alongside live nutrition totals."
+    }, {
+      "src": "/projects/macrova-mobile-ingredients.png",
+      "view": "Mobile view",
+      "alt": "Macrova mobile ingredients screen with ingredient search, source filters, and a Create Custom Ingredient button."
+    }, {
+      "src": "/projects/macrova-mobile-profile.png",
+      "view": "Mobile view",
+      "alt": "Macrova mobile profile and settings screen showing editable nutrition targets, calorie deficit mode, and user demographics."
     }],
     "summary": "A mobile app that plans meals around nutrition targets, food preferences, and your schedule.",
     "description": "Macrova is a mobile meal-planning app built with Flutter and a Python backend. It builds one to seven days of meals around macro and micronutrient targets, excluded ingredients, preparation time, and pinned meals, using a deterministic backtracking search.",
@@ -819,6 +829,9 @@ function projectPreview(project: Project, expanded = false): HTMLElement {
     const image = el('img', { src: images[index].src, alt: images[index].alt, loading: 'lazy', decoding: 'async' });
     image.addEventListener('error', fallback, { once: true });
     frame.replaceChildren(image);
+    if (images.length === 1 && images[index].view) {
+      frame.appendChild(el('span', { className: 'project-view-label' }, images[index].view));
+    }
   };
   if (images.length) showImage(0);
   else fallback();
@@ -828,11 +841,12 @@ function projectPreview(project: Project, expanded = false): HTMLElement {
     preview.setAttribute('aria-label', `${project.name} screenshots`);
     preview.appendChild(frame);
     let index = 0;
-    const status = el('span', { className: 'project-slide-count', 'aria-live': 'polite', 'aria-atomic': 'true' }, `1 / ${images.length}`);
+    const slideLabel = (index: number) => `${images[index].view ? `${images[index].view} · ` : ''}${index + 1} / ${images.length}`;
+    const status = el('span', { className: 'project-slide-count', 'aria-live': 'polite', 'aria-atomic': 'true' }, slideLabel(index));
     const change = (step: number) => {
       index = (index + step + images.length) % images.length;
       showImage(index);
-      status.textContent = `${index + 1} / ${images.length}`;
+      status.textContent = slideLabel(index);
     };
     const controls = el('div', { className: 'project-gallery-controls' });
     for (const [label, symbol, step] of [['Previous image', '←', -1], ['Next image', '→', 1]] as const) {
