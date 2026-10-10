@@ -136,6 +136,13 @@ const projects: Project[] = [
   {
     "id": "macrova",
     "name": "Macrova: Meal Planning Mobile App",
+    "images": [{
+      "src": "/projects/macrova-schedule.png",
+      "alt": "Macrova schedule planner showing daily meal counts, cooking-time preferences, and workouts between meals."
+    }, {
+      "src": "/projects/macrova-recipe-builder.png",
+      "alt": "Macrova recipe builder with ingredient, serving, cooking-time, and instruction fields alongside live nutrition totals."
+    }],
     "summary": "A mobile app that plans meals around nutrition targets, food preferences, and your schedule.",
     "description": "Macrova is a mobile meal-planning app built with Flutter and a Python backend. It builds one to seven days of meals around macro and micronutrient targets, excluded ingredients, preparation time, and pinned meals, using a deterministic backtracking search.",
     "tags": [
