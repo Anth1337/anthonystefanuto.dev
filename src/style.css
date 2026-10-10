@@ -706,9 +706,9 @@ nav .container { gap: 1rem; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: .75rem; padding: 1.25rem; border-bottom: 1px solid var(--border);
 }
-.project-preview:has(img) { padding: 0; }
+.project-preview:has(img, video) { padding: 0; }
 .project-view-label { position: absolute; top: 8px; left: 8px; padding: 4px 8px; border-radius: 4px; background: #191919; color: #eee; font-size: .75rem; }
-.project-preview img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+.project-preview :is(img, video) { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .project-gallery { position: relative; }
 .project-slide { position: absolute; inset: 0 0 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .project-gallery-controls { position: absolute; bottom: 0; left: 0; right: 0; height: 44px; display: flex; align-items: center; justify-content: center; gap: 1rem; background: #191919; cursor: default; }
@@ -938,8 +938,8 @@ footer p {
   .project-grid { grid-template-columns: 1fr; gap: 0; }
   .project-card { border: 0; border-top: 1px solid var(--border); background: transparent; }
   .project-card:last-child { border-bottom: 1px solid var(--border); }
-  .project-card > .project-preview:not(:has(img)) { display: none; }
-  .project-card > .project-preview:has(img) { height: 140px; aspect-ratio: auto; }
+  .project-card > .project-preview:not(:has(img, video)) { display: none; }
+  .project-card > .project-preview:has(img, video) { height: 140px; aspect-ratio: auto; }
   .project-card-body { padding: 18px 0; }
   .project-card h3 { font-size: 1.0625rem; margin-bottom: 8px; }
   .project-title-button { min-height: 44px; }
@@ -947,7 +947,7 @@ footer p {
   .project-card .tech-tags { display: none; }
   .project-card .project-links { margin-top: auto; }
   .project-dialog { width: calc(100% - 24px); padding: 20px; max-height: calc(100dvh - 24px); }
-  .project-dialog > .project-preview:not(:has(img)) { display: none; }
+  .project-dialog > .project-preview:not(:has(img, video)) { display: none; }
   .project-dialog .tech-tags { display: flex; }
   .project-detail-description, .project-highlights { line-height: 1.6; }
   .mobile-project-toggle {

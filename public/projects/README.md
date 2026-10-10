@@ -14,3 +14,7 @@ links: [
 ```
 
 Replace example URLs with real destinations; omit unavailable links. Screenshots retain full color and fit uncropped in a 16:10 preview. Missing or failed images display a local preview panel. Keep `summary` to one concise sentence; use `description` and optional `highlights` for detail views.
+
+Projects can also use `video: { src: '/projects/demo.mp4', label: 'Describe the demo' }`. Videos loop silently with playback controls; autoplay is disabled when reduced motion is preferred.
+
+`thumos14-demo.mp4` is the complete highlight reel from [Thumos14ActionTransformer](https://github.com/Anth1337/Thumos14ActionTransformer/blob/main/demo/outputs/highlight_reel.mp4), converted from MPEG-4 Part 2 to browser-compatible H.264 at its original 1280×540 resolution. Encoding uses `libx264 -preset medium -crf 27 -pix_fmt yuv420p -movflags +faststart -an`.

@@ -11,6 +11,7 @@ interface Project {
   tags: string[];
   image?: { src: string; alt: string; view?: 'Web view' | 'Mobile view' };
   images?: { src: string; alt: string; view?: 'Web view' | 'Mobile view' }[];
+  video?: { src: string; label: string };
   highlights?: string[];
   links: { label: string; url: string }[];
 }
@@ -107,6 +108,10 @@ const projects: Project[] = [
   {
     "id": "temporal-action-detection",
     "name": "Temporal Action Detection on THUMOS14",
+    "video": {
+      "src": "/projects/thumos14-demo.mp4",
+      "label": "THUMOS14 demo showing detected sports actions and live ActionFormer classification scores."
+    },
     "summary": "Find the start, end, and type of an action in an untrimmed sports video.",
     "description": "A research project comparing I3D and VideoMAE v2 features with CNN and ActionFormer detection heads on THUMOS14. The pipeline adapts the ActionFormer codebase, keeps extracted features frozen, and trains the detection heads on Modal GPUs.",
     "tags": [
@@ -818,6 +823,21 @@ function buildSkills(): HTMLElement {
 
 function projectPreview(project: Project, expanded = false): HTMLElement {
   const preview = el('div', { className: 'project-preview' });
+  if (project.video) {
+    const video = document.createElement('video');
+    video.src = project.video.src;
+    video.setAttribute('aria-label', project.video.label);
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.controls = true;
+    video.preload = 'metadata';
+    video.autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    video.addEventListener('click', event => event.stopPropagation());
+    video.appendChild(el('a', { href: project.video.src }, 'Watch the THUMOS14 demo'));
+    preview.appendChild(video);
+    return preview;
+  }
   const availableImages = project.images?.length ? project.images : project.image ? [project.image] : [];
   const images = expanded ? availableImages : availableImages.slice(0, 1);
   const frame = images.length > 1 ? el('div', { className: 'project-slide' }) : preview;
