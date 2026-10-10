@@ -222,6 +222,13 @@ const projects: Project[] = [
   {
     "id": "mlb-breakout",
     "name": "MLB Breakout Player Detector",
+    "images": [{
+      "src": "/projects/mlb-breakout-board.png",
+      "alt": "MLB Breakout Board overview showing model evaluation metrics and the top-ranked minor-league hitters."
+    }, {
+      "src": "/projects/mlb-breakout-rankings.png",
+      "alt": "MLB breakout prospect rankings showing player scores, batting statistics, and the factors contributing to each ranking."
+    }],
     "summary": "Rank minor-league hitters by their estimated chance of future MLB success.",
     "description": "A Python notebook that collects MLB and minor-league batting data from the MLB Stats API, builds prospect features, and compares three classifiers. It defines a breakout as at least 500 MLB plate appearances with a combined OPS of 0.740 or higher in the following six seasons.",
     "tags": [
